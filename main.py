@@ -31,6 +31,7 @@ teleworker = teleworker.Worker()
 upd = bot.link + '/getUpdates'
 queue = asyncio.Queue()
 localtime = time.asctime(time.localtime(time.time()))
+launchtime = time.time()
 
 # printing startup message
 print(f'Started @ {localtime}')
@@ -96,6 +97,10 @@ async def putout(q):
                 pass
             elif bot.get_message(item).startswith('/8ball'):
                 await mods.ball(item)
+            elif bot.get_message(item) == '/uptime':
+                await bot.get_uptime(launchtime)
+            elif bot.get_message(item) == '/uptime@nUnionVoid_bot':
+                await bot.get_uptime(launchtime)
             elif bot.get_message(item).startswith('/8ball@nUnionVoid_bot'):
                 await mods.ball(item)
             elif bot.get_message(item).startswith('/save'):
@@ -146,34 +151,8 @@ async def putout(q):
 
 prc2 = Process(target=worker.curr_loop, args=(worker.list_all_consig(fore=True), 10))
 prc2.start()
+
 loop = asyncio.get_event_loop()
 loop.run_until_complete(putin(queue))
 
 # starting processes that would check for new messages and start adding currency for the consignments
-
-# DEBUG: sample of json object
-dump = {"ok": True, "result": [{"update_id": 963774730,
-                                "message": {"message_id": 7771,
-                                            "from": {"id": 237892260, "is_bot": False, "first_name": "N0153",
-                                                     "username": "noisebro", "language_code": "en"},
-                                            "chat": {"id": 237892260, "first_name": "N0153", "username": "noisebro",
-                                                     "type": "private"}, "date": 1585682799,
-                                            "text": "\u041f\u0440\u0438\u0432\u0435\u0442"}}]}
-dump1 = {"ok": True, "result": [{"update_id": 963775083,
-                                 "callback_query": {"id": "1021739479273566550",
-                                                    "from": {"id": 237892260, "is_bot": False, "first_name": "N0153",
-                                                             "username": "noisebro", "language_code": "en"},
-                                                    "message": {"message_id": 8248,
-                                                                "from": {"id": 1032150163, "is_bot": True,
-                                                                         "first_name": "Void",
-                                                                         "username": "nUnionVoid_bot"},
-                                                                "chat": {"id": 237892260, "first_name": "N0153",
-                                                                         "username": "noisebro", "type": "private"},
-                                                                "date": 1586120963, "text": "Here is your inline:",
-                                                                "reply_markup": {"inline_keyboard": [[{"text": "suka",
-                                                                                                       "callback_data": "callback_data0"}],
-                                                                                                     [{"text": "pidor",
-                                                                                                       "callback_data": "callback_data1"}],
-                                                                                                     [{"text": "gandon",
-                                                                                                       "callback_data": "callback_data2"}]]}},
-                                                    "chat_instance": "3976568242328110719", "data": "callback_data0"}}]}

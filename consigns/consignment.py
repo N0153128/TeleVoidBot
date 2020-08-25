@@ -6,9 +6,10 @@ import sys
 from statistics import mode
 import statistics
 from time import sleep
+import os
 
-db = SqliteDatabase('memory.db', autoconnect=True)
-
+db = SqliteDatabase(f'{os.path.dirname(os.path.abspath(__file__))}/../memory.db', autoconnect=True)
+print(f'{os.path.dirname(os.path.abspath(__file__))}/../memory.db')
 
 class Consignment(Model):
     name = CharField()
@@ -107,8 +108,8 @@ class Worker(Bot):
             if query.exists():
                 print('This Civil already exists')
             else:
-                if self.consig_in_check(data):
-                    consig = self.consig_in_check(data)
+                if await self.consig_in_check(data):
+                    consig = await self.consig_in_check(data)
                     newciv = Civil(name=data, consignment=consig)
                     newciv.save()
         elif dirty is not None:
@@ -117,8 +118,8 @@ class Worker(Bot):
                 print('This Civil already exists')
                 await self.send_message(data, 'You\'re already member of a consignment', get_chat=True)
             else:
-                if self.consig_in_check(data):
-                    consig = self.consig_in_check(data)
+                if await self.consig_in_check(data):
+                    consig = await self.consig_in_check(data)
                     newciv = Civil(name=self.get_from_id(data), consignment=consig)
                     newciv.save()
                     await self.send_message(data,
@@ -225,7 +226,7 @@ class Worker(Bot):
 
     # sends list of all consignments to the user
     async def send_all_consig(self, data):
-        with open('assets/consig_list', 'r') as f:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/../assets/consig_list', 'r') as f:
             r = f.read()
             await self.send_message(data, r, get_chat=True)
 

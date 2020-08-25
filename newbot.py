@@ -1,6 +1,7 @@
 import ujson
 import aiohttp
-
+import time
+import asyncio
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
 # needs an object of get_all() (mostly called 'data') in order to return the value
@@ -195,26 +196,29 @@ class Bot:
         return charge
 
     # this method creates sendMessage requests that may contain inline keyboard, use get_chat_id or use clean data
-    async def send_message(self, data, message, get_chat=None, pure=None, inline=None, callback=None):
+    async def send_message(self, data, message, get_chat=None, pure=None, inline=None, callback=None, chat_id=None):
         address = f'{self.link}/sendMessage'
-        if pure is None:
-            if get_chat is None:
-                if inline is not None:
-                    if callback is None:
-                        await self.session.post(address,
-                                                data=self.make_payload(ide=self.get_chat_id(data), text=message,
-                                                                       inline=inline))
-                    elif callback is not None:
-                        await self.session.post(address,
-                                                data=self.make_payload(ide=self.get_chat_id(data), text=message,
-                                                                       inline=inline,
-                                                                       callback=callback))
-                elif inline is None:
-                    await self.session.post(address, data=self.make_payload(self.get_from_id(data), message))
-            elif get_chat is not None:
-                await self.session.post(address, data=self.make_payload(self.get_chat_id(data), message))
-        elif pure is not None:
-            await self.session.post(address, data=self.make_payload(data, message))
+        if chat_id is None:
+            if pure is None:
+                if get_chat is None:
+                    if inline is not None:
+                        if callback is None:
+                            await self.session.post(address,
+                                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
+                                                                           inline=inline))
+                        elif callback is not None:
+                            await self.session.post(address,
+                                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
+                                                                           inline=inline,
+                                                                           callback=callback))
+                    elif inline is None:
+                        await self.session.post(address, data=self.make_payload(self.get_from_id(data), message))
+                elif get_chat is not None:
+                    await self.session.post(address, data=self.make_payload(self.get_chat_id(data), message))
+            elif pure is not None:
+                await self.session.post(address, data=self.make_payload(data, message))
+        elif chat_id is not None:
+            await self.session.post(address, data=self.make_payload(chat_id, message))
 
     @staticmethod
     def get_name(data):
@@ -282,3 +286,15 @@ class Bot:
         data1 = [data]
         if 'callback_query' in data1[0]['result'][0]:
             return data1[0]['result'][0]['callback_query']['data']
+
+    async def direct_message(self, chat_id, message):
+        address = f'{self.link}/sendMessage'
+        await self.session.post(address,
+                                data=self.make_payload(ide=chat_id, text=message))
+
+    async def get_uptime(self, start):
+        past = start
+        vremechko = time.gmtime(time.time() - past)
+        await self.direct_message(chat_id='237892260', message=f'Uptime: {vremechko[1]} Months,'
+                                                               f' {vremechko[2]} days, {vremechko[3]} hours, '
+                                                               f'{vremechko[4]} minutes, {vremechko[5]} seconds')

@@ -1,7 +1,8 @@
 from peewee import *
 from newbot import Bot
+import os
 
-database = SqliteDatabase('Database.db')
+database = SqliteDatabase(f'{os.path.dirname(os.path.abspath(__file__))}/Database.db')
 
 
 class UnknownField(object):
