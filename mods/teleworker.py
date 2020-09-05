@@ -235,6 +235,3 @@ class Worker(Notes, Bot):
             iterated = item[1][1]
             result.append(iterated)
         return result
-
-
-w = Worker()

@@ -49,7 +49,7 @@ async def putin(q):
             data = await bot.get_all()
             offset = bot.get_id(data) + 1
             await log.log_saver(str(bot.get_name(data)), str(bot.get_from_id(data)), str(bot.get_message(data)),
-                                bot.get_chat_type(data), bot.get_chat_id(data), bot.get_username(data))
+                                bot.get_chat_type(data), bot.get_chat_id(data), bot.get_username_or_first_name(data))
             # if spam.checker(bot.get_chat_id(data)):
             await q.put(data)
             await bot.session.get(bot.link + '/getUpdates?offset=' + str(offset))

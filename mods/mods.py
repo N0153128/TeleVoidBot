@@ -119,11 +119,17 @@ class Mods(teleworker.Worker):
 
     # /pat - appreciates cats help
     async def pat(self, data):
-        if self.bot.get_chat_id(data) == -385389138:
-            await self.bot.send_message(data, f'@Karasten, {self.bot.get_name(data)} гладит тебя по спинке',
+        if self.is_reply(data):
+            await self.bot.send_message(data,
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} гладит тебя по спинке',
                                         get_chat=True)
         else:
-            await self.bot.delete_message(data)
+            print('shit')
+        # if self.bot.get_chat_id(data) == -385389138:
+        #     await self.bot.send_message(data, f'@Karasten, {self.bot.get_name(data)} гладит тебя по спинке',
+        #                                 get_chat=True)
+        # else:
+        #     await self.bot.delete_message(data)
 
     # /showmine - returns set of fancy keys with the links for user's notes
     async def send_keys(self, data):

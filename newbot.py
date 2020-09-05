@@ -1,7 +1,6 @@
 import ujson
 import aiohttp
 import time
-import asyncio
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
 # needs an object of get_all() (mostly called 'data') in order to return the value
@@ -233,6 +232,21 @@ class Bot(object):
             return False
 
     @staticmethod
+    def is_username(data):
+        i = [data]
+        if 'message' in i[0]['result'][0]:
+            if 'username' in i[0]['result'][0]['message']['from']:
+                return True
+            elif 'edited_message' in i[0]['result'][0]:
+                if 'username' in i[0]['result'][0]['edited_message']['from']:
+                    return True
+            elif 'callback_query' in i[0]['result'][0]:
+                if 'username' in i[0]['result'][0]['callback_query']['from']:
+                    return True
+        else:
+            return False
+
+    @staticmethod
     def get_username(data):
         i = [data]
         if 'message' in i[0]['result'][0]:
@@ -241,6 +255,29 @@ class Bot(object):
             return i[0]['result'][0]['edited_message']['from']['username']
         elif 'callback_query' in i[0]['result'][0]:
             return i[0]['result'][0]['callback_query']['from']['username']
+        else:
+            return False
+
+    @staticmethod
+    def get_username_or_first_name(data):
+        i = [data]
+        if 'message' in i[0]['result'][0]:
+            if 'username' in i[0]['result'][0]['message']['from']:
+                return i[0]['result'][0]['message']['from']['username']
+            else:
+                return i[0]['result'][0]['message']['from']['first_name']
+
+        elif 'edited_message' in i[0]['result'][0]:
+            if 'username' in i[0]['result'][0]['edited_message']['from']:
+                return i[0]['result'][0]['edited_message']['from']['username']
+            else:
+                return i[0]['result'][0]['edited_message']['from']['first_name']
+
+        elif 'callback_query' in i[0]['result'][0]:
+            if 'username' in i[0]['result'][0]['callback_query']['from']:
+                return i[0]['result'][0]['callback_query']['from']['username']
+            else:
+                return i[0]['result'][0]['callback_query']['from']['firstname']
         else:
             return False
 
@@ -298,3 +335,22 @@ class Bot(object):
         await self.direct_message(chat_id='237892260', message=f'Uptime: {vremechko[1]} Months,'
                                                                f' {vremechko[2]} days, {vremechko[3]} hours, '
                                                                f'{vremechko[4]} minutes, {vremechko[5]} seconds')
+
+    @staticmethod
+    def get_reply_to(data):
+        i = [data]
+        if 'message' in i[0]['result'][0]:
+            if 'reply_to_message' in i[0]['result'][0]['message']:
+                if 'username' in i[0]['result'][0]['message']['reply_to_message']['from']:
+                    return i[0]['result'][0]['message']['reply_to_message']['from']['username']
+                else:
+                    return i[0]['result'][0]['message']['reply_to_message']['from']['first_name']
+
+    @staticmethod
+    def is_reply(data):
+        i = [data]
+        if 'message' in i[0]['result'][0]:
+            if 'reply_to_message' in i[0]['result'][0]['message']:
+                return True
+        else:
+            return False

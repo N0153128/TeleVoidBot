@@ -11,6 +11,7 @@ import os
 db = SqliteDatabase(f'{os.path.dirname(os.path.abspath(__file__))}/../memory.db', autoconnect=True)
 print(f'{os.path.dirname(os.path.abspath(__file__))}/../memory.db')
 
+
 class Consignment(Model):
     name = CharField()
     color = CharField()
