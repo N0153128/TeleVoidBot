@@ -7,10 +7,10 @@ import asyncio
 # needs an object of get_all() (mostly called 'data') in order to return the value
 
 
-class Bot:
+class Bot(object):
 
-    def __init__(self):
-        self.token = 'TOKEN'
+    def __init__(self, token):
+        self.token = token
         self.link = f'https://api.telegram.org/bot{self.token}'
         self.session = aiohttp.ClientSession()
 

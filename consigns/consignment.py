@@ -275,5 +275,3 @@ class Worker(Bot):
         base = SqliteDatabase(database='memory.db')
         print(base.get_columns(table))
 
-
-w = Worker()

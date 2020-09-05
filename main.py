@@ -6,6 +6,7 @@ from consigns import consignment
 from mods import teleworker
 import asyncio
 from multiprocessing import Process
+import sys
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -20,11 +21,12 @@ from multiprocessing import Process
 # get_chat: arbitrary argument, if specified - uses get_chat_id, instead of get_from_id
 
 # initializing objects
-bot = Bot()
+bot = Bot(token=sys.argv[1])
+print(bot.token)
 mods = mods.Mods()
 log = logmod.Loger()
 # spam = spam.Spam()
-worker = consignment.Worker()
+worker = consignment.Worker(token=sys.argv[1])
 teleworker = teleworker.Worker()
 
 # initializing variables
@@ -96,7 +98,10 @@ async def putout(q):
             elif not bot.get_message(item):
                 pass
             elif bot.get_message(item).startswith('/8ball'):
-                await mods.ball(item)
+                if bot.get_from_id(item) == 237892260:
+                    await bot.send_message(item, 'Yes', get_chat=True)
+                else:
+                    await mods.ball(item)
             elif bot.get_message(item) == '/uptime':
                 await bot.get_uptime(launchtime)
             elif bot.get_message(item) == '/uptime@nUnionVoid_bot':
@@ -122,7 +127,7 @@ async def putout(q):
                 await mods.send_keys(item)
             elif bot.get_message(item) == '/clear':
                 await mods.clear(item)
-            # # Consignments
+            # Consignments
             elif bot.get_message(item) == '/list':
                 await worker.send_all_consig(item)
             elif bot.get_message(item) == '/list@nUnionVoid_bot':

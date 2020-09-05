@@ -4,6 +4,7 @@ from telegraph import Telegraph
 import re
 import time
 from . import teleworker
+import sys
 
 
 class Mods(teleworker.Worker):
@@ -11,7 +12,7 @@ class Mods(teleworker.Worker):
     def __init__(self):
         super().__init__()
         self.tph = Telegraph()
-        self.bot = Bot()
+        self.bot = Bot(token=sys.argv[1])
 
     # /8ball method
     async def ball(self, data):
