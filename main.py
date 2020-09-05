@@ -123,6 +123,16 @@ async def putout(q):
                 await mods.cats(item)
             elif bot.get_message(item) == '/pat':
                 await mods.pat(item)
+            elif bot.get_message(item) == '/hug':
+                await mods.hug(item)
+            elif bot.get_message(item) == '/le':
+                await mods.le(item)
+            elif bot.get_message(item) == '/kick':
+                await mods.kick(item)
+            elif bot.get_message(item) == '/swear':
+                await mods.swear(item)
+            elif bot.get_message(item) == '/angry':
+                await mods.angry(item)
             elif bot.get_message(item) == '/showmine':
                 await mods.send_keys(item)
             elif bot.get_message(item) == '/clear':

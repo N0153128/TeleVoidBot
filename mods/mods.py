@@ -124,7 +124,40 @@ class Mods(teleworker.Worker):
                                         f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} гладит тебя по спинке',
                                         get_chat=True)
         else:
-            print('shit')
+            pass
+
+    async def hug(self, data):
+        if self.is_reply(data):
+            await self.bot.send_message(data,
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} обнимает тебя',
+                                        get_chat=True)
+        else:
+            pass
+
+    async def le(self, data):
+        if self.is_reply(data):
+            await self.bot.send_message(data,
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} дал тебе леща',
+                                        get_chat=True)
+        else:
+            pass
+
+    async def kick(self, data):
+        if self.is_reply(data):
+            await self.bot.send_message(data,
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} дал тебе пинок под'
+                                        f' зад',
+                                        get_chat=True)
+        else:
+            pass
+
+    async def swear(self, data):
+        await self.bot.send_message(data, f'Товарищ @{self.get_username_or_first_name(data)} ругается матом изо всех сил!', get_chat=True)
+
+    async def angry(self, data):
+        await self.bot.send_message(data,
+                                    f'Товарищ @{self.get_username_or_first_name(data)} очень зол!!',
+                                    get_chat=True)
         # if self.bot.get_chat_id(data) == -385389138:
         #     await self.bot.send_message(data, f'@Karasten, {self.bot.get_name(data)} гладит тебя по спинке',
         #                                 get_chat=True)
