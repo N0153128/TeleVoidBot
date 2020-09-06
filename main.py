@@ -22,7 +22,7 @@ import sys
 
 # initializing objects
 bot = Bot(token=sys.argv[1])
-print(bot.token)
+print(f'\nUsing token: {bot.token}\n')
 mods = mods.Mods()
 log = logmod.Loger()
 # spam = spam.Spam()
@@ -102,14 +102,14 @@ async def putout(q):
                     await bot.send_message(item, 'Yes', get_chat=True)
                 else:
                     await mods.ball(item)
+            elif bot.get_message(item) == '/pic':
+                await bot.send_photo(item, 'https://files.catbox.moe/ystpuu.jpg')
             elif bot.get_message(item) == '/uptime':
                 await bot.get_uptime(launchtime)
             elif bot.get_message(item) == '/uptime@nUnionVoid_bot':
                 await bot.get_uptime(launchtime)
             elif bot.get_message(item).startswith('/8ball@nUnionVoid_bot'):
                 await mods.ball(item)
-            elif bot.get_message(item).startswith('/save'):
-                await mods.note_handler(item)
             elif bot.get_message(item).startswith('/rules'):
                 if bot.get_chat_type(item) == 'private':
                     await mods.private_rules(item)
@@ -121,6 +121,7 @@ async def putout(q):
                 await mods.save_locally(item)
             elif bot.get_message(item) == '/cat':
                 await mods.cats(item)
+            # RP
             elif bot.get_message(item) == '/pat':
                 await mods.pat(item)
             elif bot.get_message(item) == '/hug':
@@ -133,6 +134,9 @@ async def putout(q):
                 await mods.swear(item)
             elif bot.get_message(item) == '/angry':
                 await mods.angry(item)
+            # Telegraph
+            elif bot.get_message(item).startswith('/save'):
+                await mods.note_handler(item)
             elif bot.get_message(item) == '/showmine':
                 await mods.send_keys(item)
             elif bot.get_message(item) == '/clear':

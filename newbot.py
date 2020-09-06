@@ -354,3 +354,23 @@ class Bot(object):
                 return True
         else:
             return False
+
+    @staticmethod
+    def make_photo(chat_id, photo, caption=None,):
+        if caption is None:
+            payload = {
+                'chat_id': chat_id,
+                'photo': photo
+            }
+            return payload
+        elif caption is not None:
+            payload = {
+                'chat_id': chat_id,
+                'photo': photo,
+                'caption': caption
+            }
+            return payload
+
+    async def send_photo(self, data, link):
+        address = f'{self.link}/sendPhoto'
+        await self.session.post(address, data=self.make_photo(self.get_chat_id(data), link))
