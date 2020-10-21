@@ -332,10 +332,8 @@ class Bot(object):
     async def get_uptime(self, start, data):
         if self.get_chat_id(data) == 237892260:
             past = start
-            vremechko = time.gmtime(time.time() - past)
-            await self.direct_message(chat_id='237892260', message=f'Uptime: {vremechko[1]} Months,'
-                                                                   f' {vremechko[2]} days, {vremechko[3]} hours, '
-                                                                   f'{vremechko[4]} minutes, {vremechko[5]} seconds')
+            vremechko = time.asctime(time.gmtime(time.time() - past))
+            await self.direct_message(chat_id='237892260', message=f'{vremechko[7:-5]}')
         else:
             await self.send_message(data, 'Only Gargoyle can do that!', get_chat=True)
 
