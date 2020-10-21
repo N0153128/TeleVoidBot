@@ -1,2 +1,2 @@
 # Void_Bot
-Run this bot with 'python3.7 main.py'
+Run this bot with 'python3.7 main.py <BOT API KEY>'
