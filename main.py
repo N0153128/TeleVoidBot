@@ -105,9 +105,9 @@ async def putout(q):
             elif bot.get_message(item) == '/pic':
                 await bot.send_photo(item, 'https://files.catbox.moe/ystpuu.jpg')
             elif bot.get_message(item) == '/uptime':
-                await bot.get_uptime(launchtime)
+                await bot.get_uptime(launchtime, item)
             elif bot.get_message(item) == '/uptime@nUnionVoid_bot':
-                await bot.get_uptime(launchtime)
+                await bot.get_uptime(launchtime, item)
             elif bot.get_message(item).startswith('/8ball@nUnionVoid_bot'):
                 await mods.ball(item)
             elif bot.get_message(item).startswith('/rules'):
