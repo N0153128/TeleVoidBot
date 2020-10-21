@@ -19,8 +19,7 @@ class Bot(object):
 
     @staticmethod
     def get_id(data):
-        i = [data]
-        return int(i[0]['result'][0]['update_id'])
+        return int(data['result'][0]['update_id'])
 
     async def offset(self, data):
         offset = self.get_id(data) + 1
@@ -28,90 +27,84 @@ class Bot(object):
 
     @staticmethod
     def get_chat_id(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['chat']['id']
-        elif 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['message']['chat']['id']
+        if 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['chat']['id']
+        elif 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['message']['chat']['id']
         else:
-            return i[0]['result'][0]['message']['chat']['id']
+            return data['result'][0]['message']['chat']['id']
 
     @staticmethod
     def get_from_id(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['from']['id']
-        elif 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['from']['id']
+        if 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['from']['id']
+        elif 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['from']['id']
         else:
-            return i[0]['result'][0]['message']['from']['id']
+            return data['result'][0]['message']['from']['id']
 
     @staticmethod
     def get_sender_id(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            if 'type' in i[0]['result'][0]['edited_message']['chat'] == 'group':
-                return i[0]['result'][0]['edited_message']['from']['id']
-            elif 'type' in i[0]['result'][0]['edited_message']['chat'] == 'private':
-                return i[0]['result'][0]['edited_message']['from']['id']
+        if 'edited_message' in data['result'][0]:
+            if 'type' in data['result'][0]['edited_message']['chat'] == 'group':
+                return data['result'][0]['edited_message']['from']['id']
+            elif 'type' in data['result'][0]['edited_message']['chat'] == 'private':
+                return data['result'][0]['edited_message']['from']['id']
         else:
-            if 'type' in i[0]['result'][0]['message']['chat'] == 'group':
-                return i[0]['result'][0]['message']['from']['id']
-            elif 'type' in i[0]['result'][0]['message']['chat'] == 'private':
-                return i[0]['result'][0]['message']['from']['id']
+            if 'type' in data['result'][0]['message']['chat'] == 'group':
+                return data['result'][0]['message']['from']['id']
+            elif 'type' in data['result'][0]['message']['chat'] == 'private':
+                return data['result'][0]['message']['from']['id']
 
     @staticmethod
     def get_chat_type(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['chat']['type']
-        elif 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['message']['chat']['type']
+        if 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['chat']['type']
+        elif 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['message']['chat']['type']
         else:
-            return i[0]['result'][0]['message']['chat']['type']
+            return data['result'][0]['message']['chat']['type']
 
     def get_message(self, data):
-        i = [data]
         if self.is_callback(data):
             return self.get_callback_data(data)
-        if 'message' in i[0]['result'][0]:
-            if 'chat' in i[0]['result'][0]['message']:
-                if i[0]['result'][0]['message']['chat']['type'] == 'private':
-                    if 'text' in i[0]['result'][0]['message']:
-                        return i[0]['result'][0]['message']['text']
-                elif i[0]['result'][0]['message']['chat']['type'] == 'group':
-                    if 'text' in i[0]['result'][0]['message']:
-                        return i[0]['result'][0]['message']['text']
-                    if 'new_chat_participant' in i[0]['result'][0]['message']:
+        if 'message' in data['result'][0]:
+            if 'chat' in data['result'][0]['message']:
+                if data['result'][0]['message']['chat']['type'] == 'private':
+                    if 'text' in data['result'][0]['message']:
+                        return data['result'][0]['message']['text']
+                elif data['result'][0]['message']['chat']['type'] == 'group':
+                    if 'text' in data['result'][0]['message']:
+                        return data['result'][0]['message']['text']
+                    if 'new_chat_participant' in data['result'][0]['message']:
                         return False
-                    elif 'left_chat_participant' in i[0]['result'][0]['message']:
+                    elif 'left_chat_participant' in data['result'][0]['message']:
                         return False
-                    elif 'pinned_message' in i[0]['result'][0]['message']:
+                    elif 'pinned_message' in data['result'][0]['message']:
                         return False
-        elif 'message' in i[0]['result'][0]['edited_message']:
-            if 'chat' in i[0]['result'][0]['edited_message']:
-                if i[0]['result'][0]['edited_message']['chat']['type'] == 'private':
-                    if 'text' in i[0]['result'][0]['edited_message']:
-                        return i[0]['result'][0]['edited_message']['text']
-                elif i[0]['result'][0]['edited_message']['chat']['type'] == 'group':
-                    if 'text' in i[0]['result'][0]['edited_message']:
-                        return i[0]['result'][0]['edited_message']['text']
-                    if 'new_chat_participant' in i[0]['result'][0]['edited_message']:
+        elif 'message' in data['result'][0]['edited_message']:
+            if 'chat' in data['result'][0]['edited_message']:
+                if data['result'][0]['edited_message']['chat']['type'] == 'private':
+                    if 'text' in data['result'][0]['edited_message']:
+                        return data['result'][0]['edited_message']['text']
+                elif data['result'][0]['edited_message']['chat']['type'] == 'group':
+                    if 'text' in data['result'][0]['edited_message']:
+                        return data['result'][0]['edited_message']['text']
+                    if 'new_chat_participant' in data['result'][0]['edited_message']:
                         return False
-                    elif 'left_chat_participant' in i[0]['result'][0]['edited_message']:
+                    elif 'left_chat_participant' in data['result'][0]['edited_message']:
                         return False
-                    elif 'pinned_message' in i[0]['result'][0]['edited_message']:
+                    elif 'pinned_message' in data['result'][0]['edited_message']:
                         return False
         else:
             return False
 
     @staticmethod
     def get_message_id(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['message_id']
+        if 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['message_id']
         else:
-            return i[0]['result'][0]['message']['message_id']
+            return data['result'][0]['message']['message_id']
 
     # this method creates a set of buttons for the message
     @staticmethod
@@ -221,63 +214,59 @@ class Bot(object):
 
     @staticmethod
     def get_name(data):
-        i = [data]
-        if 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['from']['first_name']
-        elif 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['from']['first_name']
-        elif 'message' in i[0]['result'][0]:
-            return i[0]['result'][0]['message']['from']['first_name']
+        if 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['from']['first_name']
+        elif 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['from']['first_name']
+        elif 'message' in data['result'][0]:
+            return data['result'][0]['message']['from']['first_name']
         else:
             return False
 
     @staticmethod
     def is_username(data):
-        i = [data]
-        if 'message' in i[0]['result'][0]:
-            if 'username' in i[0]['result'][0]['message']['from']:
+        if 'message' in data['result'][0]:
+            if 'username' in data['result'][0]['message']['from']:
                 return True
-            elif 'edited_message' in i[0]['result'][0]:
-                if 'username' in i[0]['result'][0]['edited_message']['from']:
+            elif 'edited_message' in data['result'][0]:
+                if 'username' in data['result'][0]['edited_message']['from']:
                     return True
-            elif 'callback_query' in i[0]['result'][0]:
-                if 'username' in i[0]['result'][0]['callback_query']['from']:
+            elif 'callback_query' in data['result'][0]:
+                if 'username' in data['result'][0]['callback_query']['from']:
                     return True
         else:
             return False
 
     @staticmethod
     def get_username(data):
-        i = [data]
-        if 'message' in i[0]['result'][0]:
-            return i[0]['result'][0]['message']['from']['username']
-        elif 'edited_message' in i[0]['result'][0]:
-            return i[0]['result'][0]['edited_message']['from']['username']
-        elif 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['from']['username']
+        if 'message' in data['result'][0]:
+            return data['result'][0]['message']['from']['username']
+        elif 'edited_message' in data['result'][0]:
+            return data['result'][0]['edited_message']['from']['username']
+        elif 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['from']['username']
         else:
             return False
 
     @staticmethod
     def get_username_or_first_name(data):
-        i = [data]
-        if 'message' in i[0]['result'][0]:
-            if 'username' in i[0]['result'][0]['message']['from']:
-                return i[0]['result'][0]['message']['from']['username']
+        if 'message' in data['result'][0]:
+            if 'username' in data['result'][0]['message']['from']:
+                return data['result'][0]['message']['from']['username']
             else:
-                return i[0]['result'][0]['message']['from']['first_name']
+                return data['result'][0]['message']['from']['first_name']
 
-        elif 'edited_message' in i[0]['result'][0]:
-            if 'username' in i[0]['result'][0]['edited_message']['from']:
-                return i[0]['result'][0]['edited_message']['from']['username']
+        elif 'edited_message' in data['result'][0]:
+            if 'username' in data['result'][0]['edited_message']['from']:
+                return data['result'][0]['edited_message']['from']['username']
             else:
-                return i[0]['result'][0]['edited_message']['from']['first_name']
+                return data['result'][0]['edited_message']['from']['first_name']
 
-        elif 'callback_query' in i[0]['result'][0]:
-            if 'username' in i[0]['result'][0]['callback_query']['from']:
-                return i[0]['result'][0]['callback_query']['from']['username']
+        elif 'callback_query' in data['result'][0]:
+            if 'username' in data['result'][0]['callback_query']['from']:
+                return data['result'][0]['callback_query']['from']['username']
             else:
-                return i[0]['result'][0]['callback_query']['from']['firstname']
+                return data['result'][0]['callback_query']['from']['firstname']
         else:
             return False
 
@@ -300,17 +289,15 @@ class Bot(object):
 
     @staticmethod
     def is_callback(data):
-        i = [data]
-        if 'callback_query' in i[0]['result'][0]:
+        if 'callback_query' in data['result'][0]:
             return True
         else:
             return False
 
     @staticmethod
     def get_callback_id(data):
-        i = [data]
-        if 'callback_query' in i[0]['result'][0]:
-            return i[0]['result'][0]['callback_query']['id']
+        if 'callback_query' in data['result'][0]:
+            return data['result'][0]['callback_query']['id']
         else:
             pass
 
@@ -339,19 +326,17 @@ class Bot(object):
 
     @staticmethod
     def get_reply_to(data):
-        i = [data]
-        if 'message' in i[0]['result'][0]:
-            if 'reply_to_message' in i[0]['result'][0]['message']:
-                if 'username' in i[0]['result'][0]['message']['reply_to_message']['from']:
-                    return i[0]['result'][0]['message']['reply_to_message']['from']['username']
+        if 'message' in data['result'][0]:
+            if 'reply_to_message' in data['result'][0]['message']:
+                if 'username' in data['result'][0]['message']['reply_to_message']['from']:
+                    return data['result'][0]['message']['reply_to_message']['from']['username']
                 else:
-                    return i[0]['result'][0]['message']['reply_to_message']['from']['first_name']
+                    return data['result'][0]['message']['reply_to_message']['from']['first_name']
 
     @staticmethod
     def is_reply(data):
-        i = [data]
-        if 'message' in i[0]['result'][0]:
-            if 'reply_to_message' in i[0]['result'][0]['message']:
+        if 'message' in data['result'][0]:
+            if 'reply_to_message' in data['result'][0]['message']:
                 return True
         else:
             return False
