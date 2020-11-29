@@ -254,25 +254,24 @@ class Worker(Bot):
             leaderboard.append(participant)
         await self.send_message(data, 'This is consignments leaderboard', inline=leaderboard, callback=leaderboard)
 
-    # DEBUG: checks if database connection is closed
-    @staticmethod
-    def is_closed():
-        print(db.is_closed())
 
-    # DEBUG: closes connection with the database
-    @staticmethod
-    def close_db():
-        print(db.close())
+# DEBUG: checks if database connection is closed
+def is_closed():
+    print(db.is_closed())
 
-    # DEBUG: prints list of all tables
-    @staticmethod
-    def get_tables():
-        base = SqliteDatabase('memory.db')
-        print(base.get_tables())
 
-    # DEBUG: shows columns and their specifications for the table, that is given by an argument
-    @staticmethod
-    def get_cols(table):  # string
-        base = SqliteDatabase(database='memory.db')
-        print(base.get_columns(table))
+# DEBUG: closes connection with the database
+def close_db():
+    print(db.close())
 
+
+# DEBUG: prints list of all tables
+def get_tables():
+    base = SqliteDatabase('memory.db')
+    print(base.get_tables())
+
+
+# DEBUG: shows columns and their specifications for the table, that is given by an argument
+def get_cols(table):  # string
+    base = SqliteDatabase(database='memory.db')
+    print(base.get_columns(table))
