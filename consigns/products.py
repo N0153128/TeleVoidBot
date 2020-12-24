@@ -28,7 +28,7 @@ class Owners(Model):
 db.create_tables([RegItems, Owners])
 
 
-class Worker:
+class ProductsWorker():
 
     @staticmethod
     def item_add(name, maxal, quality):
@@ -59,9 +59,11 @@ class Worker:
     @staticmethod
     def list_all_items():
         query = RegItems.select()
+        results = []
         try:
             for i in query:
-                print(f'Item name: {i.name}, Maximum allowed: {i.max_allowed}, Quality: {i.quality}')
+                results.append(str(f'Item name: {i.name}, Maximum allowed: {i.max_allowed}, Quality: {i.quality}\n'))
+            return "\n".join(results)
         except Exception as e:
             print(e)
 
@@ -70,6 +72,9 @@ class Worker:
         for i in RegItems.select():
             query = i.delete()
             query.execute()
+
+    # def if_owns(self, user, item):
+    #     query =
 
 
 # DEBUG: checks if database connection is closed

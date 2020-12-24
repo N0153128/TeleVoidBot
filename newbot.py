@@ -1,6 +1,7 @@
 import ujson
 import aiohttp
 import time
+import settings
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
 # needs an object of get_all() (mostly called 'data') in order to return the value
@@ -360,3 +361,9 @@ class Bot(object):
     async def send_photo(self, data, link):
         address = f'{self.link}/sendPhoto'
         await self.session.post(address, data=self.make_photo(self.get_chat_id(data), link))
+
+    def strict(self, data):
+        if self.get_from_id(data) == settings.ADMIN:
+            return True
+        else:
+            return False

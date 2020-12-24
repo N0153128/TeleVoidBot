@@ -40,8 +40,10 @@ class Worker(Notes, Bot):
 
     @staticmethod
     def list_all_notes():
+        result = []
         for i in Notes.select():
-            print(f'Id: {i.id}, Name: {i.name}, Text: {i.text}, Uid: {i.uid}')
+            result.append(str(f'Id: {i.id}, Name: {i.name}, Text: {i.text}, Uid: {i.uid}'))
+        return '\n '.join(result)
 
     async def add_note(self, name, text, uid, dirt=None):
         if dirt is not None:
@@ -230,6 +232,22 @@ class Worker(Notes, Bot):
 
     def list_text_uid(self, uid):
         collection = self.select_all(uid_text=uid)
+        result = []
+        for item in collection.items():
+            iterated = item[1][1]
+            result.append(iterated)
+        return result
+
+    @staticmethod
+    def list_text_for_admin():
+        all_fetched = {}
+        _id = 0
+        query = Notes.select()
+        for i in query:
+            fetched = {_id: [i.uid, i.text]}
+            all_fetched.update(fetched)
+            _id += 1
+        collection = all_fetched
         result = []
         for item in collection.items():
             iterated = item[1][1]

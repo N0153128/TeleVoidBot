@@ -165,9 +165,13 @@ class Mods(teleworker.Worker):
         #     await self.bot.delete_message(data)
 
     # /showmine - returns set of fancy keys with the links for user's notes
-    async def send_keys(self, data):
-        collection = self.list_text_uid(self.bot.get_from_id(data))
-        await self.bot.send_message(data, 'this is all your notes so far: ', inline=collection)
+    async def send_keys(self, data, special=None):
+        if special is None:
+            collection = self.list_text_uid(self.bot.get_from_id(data))
+            await self.bot.send_message(data, 'this is all your notes so far: ', inline=collection)
+        elif special:
+            collection = self.list_text_for_admin()
+            await self.bot.send_message(data, 'this is all notes so far: ', inline=collection)
 
     # /clear - clears user's notes
     async def clear(self, data):

@@ -244,8 +244,10 @@ class Worker(Bot):
     # lists all consignments and their balances
     @staticmethod
     def list_all_curr():
+        result = []
         for i in Currency.select():
-            print(f'Consig: {i.consignment}, balance: {i.balance}')
+            result.append(str(f'Consig: {i.consignment}, balance: {i.balance}'))
+        return '\n '.join(result)
 
     async def balance_leaderboard(self, data):
         leaderboard = []

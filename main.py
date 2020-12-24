@@ -7,6 +7,7 @@ from mods import teleworker
 import asyncio
 from multiprocessing import Process
 import sys
+from consigns import products
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -28,6 +29,7 @@ log = logmod.Loger()
 # spam = spam.Spam()
 worker = consignment.Worker(token=sys.argv[1])
 teleworker = teleworker.Worker()
+products = products.ProductsWorker()
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -160,6 +162,33 @@ async def putout(q):
                 await worker.balance_leaderboard(item)
             elif bot.get_message(item) == '/leaderboard@nUnionVoid_bot':
                 await worker.balance_leaderboard(item)
+            # Exclusive
+            elif bot.get_message(item) == '/showmeproducts':
+                if bot.strict(item):
+                    await bot.send_message(item, products.list_all_items(), get_chat=True)
+                else:
+                    await bot.send_message(item, 'Access denied', get_chat=True)
+            elif bot.get_message(item) == '/showmeconsigs':
+                if bot.strict(item):
+                    await bot.send_message(item, worker.list_all_consig(), get_chat=True)
+                else:
+                    await bot.send_message(item, 'Access denied', get_chat=True)
+            elif bot.get_message(item) == '/showmecurr':
+                if bot.strict(item):
+                    await bot.send_message(item, worker.list_all_curr(), get_chat=True)
+                else:
+                    await bot.send_message(item, 'Access denied', get_chat=True)
+            elif bot.get_message(item) == '/showmeciv':
+                if bot.strict(item):
+                    await bot.send_message(item, worker.list_all_civ(), get_chat=True)
+                else:
+                    await bot.send_message(item, 'Access denied', get_chat=True)
+            elif bot.get_message(item) == '/showmenotes':
+                if bot.strict(item):
+                    await bot.send_message(item, await mods.send_keys(item, special=True), get_chat=True)
+                else:
+                    await bot.send_message(item, 'Access denied', get_chat=True)
+            # Products
             # # debug
             elif bot.get_message(item) == 'inline':
                 await bot.send_message(item, 'Here is your inline: ', inline=['suka', 'pidor', 'gandon'],

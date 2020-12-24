@@ -19,9 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="newbot now knows how to send pictures!">
-      <change afterPath="$PROJECT_DIR$/tools/filemod.py" afterDir="false" />
+    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="replaced malformed db">
+      <change afterPath="$PROJECT_DIR$/items.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consigns/consignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/consigns/consignment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consigns/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/consigns/products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/general.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/general.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory.db" beforeDir="false" afterPath="$PROJECT_DIR$/memory.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mods/mods.py" beforeDir="false" afterPath="$PROJECT_DIR$/mods/mods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mods/teleworker.py" beforeDir="false" afterPath="$PROJECT_DIR$/mods/teleworker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/newbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +47,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1h4DPzBfmn5B86Xtuh0DQmL8o73" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,6 +70,7 @@
       <recent name="$PROJECT_DIR$/consigns" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/assets" />
     </key>
   </component>
@@ -93,7 +111,49 @@
       <option name="project" value="LOCAL" />
       <updated>1599397289727</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="uptime now only works for one user">
+      <created>1603311058762</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1603311058762</updated>
+    </task>
+    <task id="LOCAL-00006" summary="reworked get_uptime method">
+      <created>1603311869350</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603311869351</updated>
+    </task>
+    <task id="LOCAL-00007" summary="minor code improvement">
+      <created>1603312759638</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1603312759638</updated>
+    </task>
+    <task id="LOCAL-00008" summary="replaced malformed db">
+      <created>1603313976252</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603313976252</updated>
+    </task>
+    <task id="LOCAL-00009" summary="replaced malformed db">
+      <created>1603314089388</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603314089388</updated>
+    </task>
+    <task id="LOCAL-00010" summary="replaced malformed db">
+      <created>1606677635634</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1606677635634</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,12 +173,10 @@
     <MESSAGE value="found and fixed: the bot couldn't log private message from a user without username" />
     <MESSAGE value="added RP functions" />
     <MESSAGE value="newbot now knows how to send pictures!" />
-    <option name="LAST_COMMIT_MESSAGE" value="newbot now knows how to send pictures!" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="355" y="128" width="1200" height="779" key="Vcs.Push.Dialog.v2" timestamp="1599397311099">
-      <screen x="0" y="0" width="1920" height="1036" />
-    </state>
-    <state x="355" y="128" width="1200" height="779" key="Vcs.Push.Dialog.v2/0.0.1920.1036@0.0.1920.1036" timestamp="1599397311099" />
+    <MESSAGE value="uptime now only works for one user" />
+    <MESSAGE value="reworked get_uptime method" />
+    <MESSAGE value="minor code improvement" />
+    <MESSAGE value="replaced malformed db" />
+    <option name="LAST_COMMIT_MESSAGE" value="replaced malformed db" />
   </component>
 </project>
