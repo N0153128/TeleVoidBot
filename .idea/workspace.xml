@@ -19,18 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="replaced malformed db">
-      <change afterPath="$PROJECT_DIR$/items.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="added admin features, settings file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/consigns/consignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/consigns/consignment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consigns/products.py" beforeDir="false" afterPath="$PROJECT_DIR$/consigns/products.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/general.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/general.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memory.db" beforeDir="false" afterPath="$PROJECT_DIR$/memory.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mods/mods.py" beforeDir="false" afterPath="$PROJECT_DIR$/mods/mods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mods/teleworker.py" beforeDir="false" afterPath="$PROJECT_DIR$/mods/teleworker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/newbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606677635634</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added admin features, settings file">
+      <created>1608775102327</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1608775102327</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +178,7 @@
     <MESSAGE value="reworked get_uptime method" />
     <MESSAGE value="minor code improvement" />
     <MESSAGE value="replaced malformed db" />
-    <option name="LAST_COMMIT_MESSAGE" value="replaced malformed db" />
+    <MESSAGE value="added admin features, settings file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added admin features, settings file" />
   </component>
 </project>

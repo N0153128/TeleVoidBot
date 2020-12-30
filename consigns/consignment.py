@@ -190,9 +190,13 @@ class Worker(Bot):
 
     # lists all civilians
     @staticmethod
-    def list_all_civ(fore=None):
+    def list_all_civ(fore=None, admin=None):
         amount = []
         if not fore:
+            if admin is not None:
+                for i in Civil.select():
+                    amount.append(str(f'ID: {i.id}, TG ID: {i.name}, Consig ID: {i.consignment}'))
+                return '\n '.join(amount)
             for i in Civil.select().dicts():
                 civ = i
                 amount.append(civ)
@@ -212,9 +216,13 @@ class Worker(Bot):
 
     # lists all consignments. returns a list with id, name and color, or only id
     @staticmethod
-    def list_all_consig(fore=None):
+    def list_all_consig(fore=None, admin=None):
         all_ = []
         if fore is None:
+            if admin is not None:
+                for i in Consignment.select():
+                    all_.append(str(f'ID: {i.id}, Name: {i.name}, Color: {i.color}'))
+                return '\n '.join(all_)
             for i in Consignment.select():
                 consig = [i.id, i.name, i.color]
                 all_.append(consig)

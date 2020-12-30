@@ -170,7 +170,7 @@ async def putout(q):
                     await bot.send_message(item, 'Access denied', get_chat=True)
             elif bot.get_message(item) == '/showmeconsigs':
                 if bot.strict(item):
-                    await bot.send_message(item, worker.list_all_consig(), get_chat=True)
+                    await bot.send_message(item, worker.list_all_consig(admin=True), get_chat=True)
                 else:
                     await bot.send_message(item, 'Access denied', get_chat=True)
             elif bot.get_message(item) == '/showmecurr':
@@ -180,14 +180,16 @@ async def putout(q):
                     await bot.send_message(item, 'Access denied', get_chat=True)
             elif bot.get_message(item) == '/showmeciv':
                 if bot.strict(item):
-                    await bot.send_message(item, worker.list_all_civ(), get_chat=True)
+                    await bot.send_message(item, worker.list_all_civ(admin=True), get_chat=True)
                 else:
                     await bot.send_message(item, 'Access denied', get_chat=True)
+            # TODO: fix /showmenotes command
             elif bot.get_message(item) == '/showmenotes':
                 if bot.strict(item):
                     await bot.send_message(item, await mods.send_keys(item, special=True), get_chat=True)
                 else:
                     await bot.send_message(item, 'Access denied', get_chat=True)
+
             # Products
             # # debug
             elif bot.get_message(item) == 'inline':
