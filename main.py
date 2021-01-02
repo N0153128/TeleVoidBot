@@ -1,3 +1,4 @@
+# coding=utf8
 from newbot import Bot
 from tools import logmod
 from mods import mods
@@ -183,12 +184,13 @@ async def putout(q):
                     await bot.send_message(item, worker.list_all_civ(admin=True), get_chat=True)
                 else:
                     await bot.send_message(item, 'Access denied', get_chat=True)
-            # TODO: fix /showmenotes command
             elif bot.get_message(item) == '/showmenotes':
                 if bot.strict(item):
-                    await bot.send_message(item, await mods.send_keys(item, special=True), get_chat=True)
+                    await bot.send_message(item, teleworker.list_text_for_admin(), get_chat=True)
                 else:
                     await bot.send_message(item, 'Access denied', get_chat=True)
+            elif bot.get_message(item) == '/debug':
+                await bot.send_message(item, 'Ебаный насос, жора, где ты был?\nХодил, гулял, курил...', get_chat=True)
 
             # Products
             # # debug

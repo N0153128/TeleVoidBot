@@ -105,6 +105,7 @@ class Mods(teleworker.Worker):
         redata = self.bot.get_message(data)[5:]
         if len(redata) > 5:
             await self.bot.send_message(data, redata)
+            await self.bot.delete_message(data)
         else:
             await self.bot.send_message(data, 'Your message cannot be saved due to its short length', get_chat=True)
             await self.bot.delete_message(data)

@@ -207,11 +207,21 @@ class Bot(object):
                     elif inline is None:
                         await self.session.post(address, data=self.make_payload(self.get_from_id(data), message))
                 elif get_chat is not None:
-                    await self.session.post(address, data=self.make_payload(self.get_chat_id(data), message))
+                    msg = self.prepare_message(message)
+                    for i in msg:
+                        await self.session.post(address, data=self.make_payload(self.get_chat_id(data), i))
             elif pure is not None:
                 await self.session.post(address, data=self.make_payload(data, message))
         elif chat_id is not None:
             await self.session.post(address, data=self.make_payload(chat_id, message))
+
+    @staticmethod
+    def prepare_message(text):
+        if len(text) > 4096:
+            return [text[i:i+4096] for i in range(0, len(text), 4096)]
+        else:
+            return [text]
+
 
     @staticmethod
     def get_name(data):
@@ -363,7 +373,4 @@ class Bot(object):
         await self.session.post(address, data=self.make_photo(self.get_chat_id(data), link))
 
     def strict(self, data):
-        if self.get_from_id(data) == settings.ADMIN:
-            return True
-        else:
-            return False
+        return self.get_from_id(data) == settings.ADMIN

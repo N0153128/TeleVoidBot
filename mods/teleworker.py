@@ -240,16 +240,7 @@ class Worker(Notes, Bot):
 
     @staticmethod
     def list_text_for_admin():
-        all_fetched = {}
-        _id = 0
-        query = Notes.select()
-        for i in query:
-            fetched = {_id: [i.uid, i.text]}
-            all_fetched.update(fetched)
-            _id += 1
-        collection = all_fetched
-        result = []
-        for item in collection.items():
-            iterated = item[1][1]
-            result.append(iterated)
-        return result
+        fetched = []
+        for i in Notes.select():
+            fetched.append(str(f'ID: {i.id},\nName: {i.name},\nText: {i.text},\nUID: {i.uid}\n\n'))
+        return ' '.join(fetched)

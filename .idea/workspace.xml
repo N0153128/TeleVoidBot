@@ -19,12 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="added admin features, settings file">
+    <list default="true" id="6f84fcd4-7dbf-428a-88f7-0716acf2b788" name="Default Changelist" comment="minor fixes on exclusive commands">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consigns/consignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/consigns/consignment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/general.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/general.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memory.db" beforeDir="false" afterPath="$PROJECT_DIR$/memory.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mods/teleworker.py" beforeDir="false" afterPath="$PROJECT_DIR$/mods/teleworker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/newbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608775102327</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="minor fixes on exclusive commands">
+      <created>1609358006592</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1609358006592</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,6 +187,7 @@
     <MESSAGE value="minor code improvement" />
     <MESSAGE value="replaced malformed db" />
     <MESSAGE value="added admin features, settings file" />
-    <option name="LAST_COMMIT_MESSAGE" value="added admin features, settings file" />
+    <MESSAGE value="minor fixes on exclusive commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fixes on exclusive commands" />
   </component>
 </project>
