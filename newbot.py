@@ -188,40 +188,49 @@ class Bot(object):
         }
         return charge
 
-    # this method creates sendMessage requests that may contain inline keyboard, use get_chat_id or use clean data
-    async def send_message(self, data, message, get_chat=None, pure=None, inline=None, callback=None, chat_id=None):
-        address = f'{self.link}/sendMessage'
-        if chat_id is None:
-            if pure is None:
-                if get_chat is None:
-                    if inline is not None:
-                        if callback is None:
-                            await self.session.post(address,
-                                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
-                                                                           inline=inline))
-                        elif callback is not None:
-                            await self.session.post(address,
-                                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
-                                                                           inline=inline,
-                                                                           callback=callback))
-                    elif inline is None:
-                        await self.session.post(address, data=self.make_payload(self.get_from_id(data), message))
-                elif get_chat is not None:
-                    msg = self.prepare_message(message)
-                    for i in msg:
-                        await self.session.post(address, data=self.make_payload(self.get_chat_id(data), i))
-            elif pure is not None:
-                await self.session.post(address, data=self.make_payload(data, message))
-        elif chat_id is not None:
-            await self.session.post(address, data=self.make_payload(chat_id, message))
-
     @staticmethod
     def prepare_message(text):
         if len(text) > 4096:
-            return [text[i:i+4096] for i in range(0, len(text), 4096)]
+            return [text[i:i + 4096] for i in range(0, len(text), 4096)]
         else:
             return [text]
 
+    # this method creates sendMessage requests that may contain inline keyboard, use get_chat_id or use clean data
+    async def send_message(self, data, message, pure=None, inline=None, callback=None, chat_id=None):
+        address = f'{self.link}/sendMessage'
+        if inline is not None:
+            await self.session.post(address,
+                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
+                                                           inline=inline))
+        elif inline and callback is not None:
+            await self.session.post(address,
+                                    data=self.make_payload(ide=self.get_chat_id(data), text=message,
+                                                           inline=inline,
+                                                           callback=callback))
+        elif pure is not None:
+            await self.session.post(address, data=self.make_payload(data, message))
+        elif chat_id is not None:
+            await self.session.post(address, data=self.make_payload(chat_id, message))
+        else:
+            msg = self.prepare_message(message)
+            for i in msg:
+                await self.session.post(address, data=self.make_payload(self.get_chat_id(data), i))
+            #
+            # await self.session.post(address,
+            #                         data=self.make_payload(ide=self.get_chat_id(data), text=message,
+            #                                                    inline=inline))
+            # await self.session.post(address,
+            #                         data=self.make_payload(ide=self.get_chat_id(data), text=message,
+            #                                                inline=inline,
+            #                                                callback=callback))
+            #     await self.session.post(address, data=self.make_payload(self.get_from_id(data), message))
+            #     msg = self.prepare_message(message)
+            #     for i in msg:
+            #         await self.session.post(address, data=self.make_payload(self.get_chat_id(data), i))
+            #   # pure
+            #     await self.session.post(address, data=self.make_payload(data, message))
+            # # chat_id
+            #     await self.session.post(address, data=self.make_payload(chat_id, message))
 
     @staticmethod
     def get_name(data):
@@ -333,7 +342,7 @@ class Bot(object):
             vremechko = time.asctime(time.gmtime(time.time() - past))
             await self.direct_message(chat_id='237892260', message=f'{vremechko[7:-5]}')
         else:
-            await self.send_message(data, 'Only Gargoyle can do that!', get_chat=True)
+            await self.send_message(data, 'Only Gargoyle can do that!')
 
     @staticmethod
     def get_reply_to(data):

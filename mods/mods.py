@@ -5,6 +5,7 @@ import re
 import time
 from . import teleworker
 import sys
+import settings
 
 
 class Mods(teleworker.Worker):
@@ -19,7 +20,7 @@ class Mods(teleworker.Worker):
         vari = ['Yes', 'No', 'Maybe', 'NOOOOOOOO', 'YESSSSSSS',
                 'Fuck you', 'suka', 'Not today', 'Not now', 'Ask me later', 'Ask Gargoyle']
         ans = random.choice(vari)
-        await self.bot.send_message(data, ans, get_chat=True)
+        await self.bot.send_message(data, ans)
 
     # saves notes to the database
     async def note_saver(self, content, name, uid, data):
@@ -28,7 +29,7 @@ class Mods(teleworker.Worker):
         response = self.tph.create_page(title, html_content=content)
         await self.add_note(name, response['path'].strip('/save'), uid)
         dat = f"https://telegra.ph/{response['path']}"
-        await self.bot.send_message(data, dat, get_chat=True)
+        await self.bot.send_message(data, dat)
         # TODO: add telegraph exception error handlers
         return True
 
@@ -56,8 +57,7 @@ class Mods(teleworker.Worker):
                     else:
                         await self.note_saver(data, self.bot.get_name(item), self.bot.get_from_id(item), item)
                 else:
-                    await self.bot.send_message(item, 'Your message cannot be saved due to its short length',
-                                                get_chat=True)
+                    await self.bot.send_message(item, 'Your message cannot be saved due to its short length')
                     await self.bot.delete_message(item)
             else:
                 if len(data) > 30:
@@ -67,18 +67,17 @@ class Mods(teleworker.Worker):
                     else:
                         await self.note_saver(data, self.bot.get_name(item), self.bot.get_from_id(item), item)
                 else:
-                    await self.bot.send_message(item, 'Your message cannot be saved due to its short length',
-                                                get_chat=True)
+                    await self.bot.send_message(item, 'Your message cannot be saved due to its short length')
                     await self.bot.delete_message(item)
         else:
-            await self.bot.send_message(item, 'Your message cannot be saved due to its short length', get_chat=True)
+            await self.bot.send_message(item, 'Your message cannot be saved due to its short length')
             await self.bot.delete_message(item)
 
     # /rules for group chats
     async def group_rules(self, data):
         with open('assets/group_rules', 'r+') as f:
             r = f.read()
-            await self.bot.send_message(data, r, get_chat=True)
+            await self.bot.send_message(data, r)
         return True
 
     # /rules for private chats
@@ -92,12 +91,12 @@ class Mods(teleworker.Worker):
     async def feedback(self, data):
         redata = self.bot.get_message(data)[9:]
         if len(redata) > 30:
-            await self.bot.send_message('505811653', f'from: {self.bot.get_name(data)}, at: {time.time()}, '
+            await self.bot.send_message(settings.ADMIN, f'from: {self.bot.get_name(data)}, at: {time.time()}, '
                                                      f'id: {self.bot.get_from_id(data)}, '
                                                      f'text: {redata}', pure=True)
-            await self.bot.send_message(data, 'Thank you for your feedback!', get_chat=True)
+            await self.bot.send_message(data, 'Thank you for your feedback!')
         else:
-            await self.bot.send_message(data, 'Your feedback cannot be sent due to its short length', get_chat=True)
+            await self.bot.send_message(data, 'Your feedback cannot be sent due to its short length')
             await self.bot.delete_message(data)
 
     # /tome - sends user's message back to himself
@@ -107,14 +106,13 @@ class Mods(teleworker.Worker):
             await self.bot.send_message(data, redata)
             await self.bot.delete_message(data)
         else:
-            await self.bot.send_message(data, 'Your message cannot be saved due to its short length', get_chat=True)
+            await self.bot.send_message(data, 'Your message cannot be saved due to its short length')
             await self.bot.delete_message(data)
 
     # /cat - requests for cats help
     async def cats(self, data):
         if self.bot.get_chat_id(data) == -385389138:
-            await self.bot.send_message(data, '@Karasten, Новый Союз нуждается в твоей кошачьей поддержке!',
-                                        get_chat=True)
+            await self.bot.send_message(data, '@Karasten, Новый Союз нуждается в твоей кошачьей поддержке!')
         else:
             await self.bot.delete_message(data)
 
@@ -122,24 +120,21 @@ class Mods(teleworker.Worker):
     async def pat(self, data):
         if self.is_reply(data):
             await self.bot.send_message(data,
-                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} гладит тебя по спинке',
-                                        get_chat=True)
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} гладит тебя по спинке')
         else:
             pass
 
     async def hug(self, data):
         if self.is_reply(data):
             await self.bot.send_message(data,
-                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} обнимает тебя',
-                                        get_chat=True)
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} обнимает тебя')
         else:
             pass
 
     async def le(self, data):
         if self.is_reply(data):
             await self.bot.send_message(data,
-                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} дал тебе леща',
-                                        get_chat=True)
+                                        f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} дал тебе леща')
         else:
             pass
 
@@ -147,18 +142,16 @@ class Mods(teleworker.Worker):
         if self.is_reply(data):
             await self.bot.send_message(data,
                                         f'@{self.get_reply_to(data)}, товарищ @{self.get_name(data)} дал тебе пинок под'
-                                        f' зад',
-                                        get_chat=True)
+                                        f' зад')
         else:
             pass
 
     async def swear(self, data):
-        await self.bot.send_message(data, f'Товарищ @{self.get_username_or_first_name(data)} ругается матом изо всех сил!', get_chat=True)
+        await self.bot.send_message(data, f'Товарищ @{self.get_username_or_first_name(data)} ругается матом изо всех сил!')
 
     async def angry(self, data):
         await self.bot.send_message(data,
-                                    f'Товарищ @{self.get_username_or_first_name(data)} очень зол!!',
-                                    get_chat=True)
+                                    f'Товарищ @{self.get_username_or_first_name(data)} очень зол!!')
         # if self.bot.get_chat_id(data) == -385389138:
         #     await self.bot.send_message(data, f'@Karasten, {self.bot.get_name(data)} гладит тебя по спинке',
         #                                 get_chat=True)
@@ -178,4 +171,4 @@ class Mods(teleworker.Worker):
     async def clear(self, data):
         user_uid = self.bot.get_from_id(data)
         self.remove_by_uid(user_uid)
-        await self.bot.send_message(data, 'Your text has been removed successfully', get_chat=True)
+        await self.bot.send_message(data, 'Your text has been removed successfully')

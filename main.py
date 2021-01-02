@@ -95,14 +95,14 @@ async def putout(q):
 
             # messages
             if bot.get_message(item) == '/void':
-                await bot.send_message(item, 'Void', get_chat=True, )
+                await bot.send_message(item, 'Void')
             elif bot.get_message(item) == '/void@nUnionVoid_bot':
-                await bot.send_message(item, 'Void', get_chat=True)
+                await bot.send_message(item, 'Void')
             elif not bot.get_message(item):
                 pass
             elif bot.get_message(item).startswith('/8ball'):
                 if bot.get_from_id(item) == 237892260:
-                    await bot.send_message(item, 'Yes', get_chat=True)
+                    await bot.send_message(item, 'Yes')
                 else:
                     await mods.ball(item)
             elif bot.get_message(item) == '/pic':
@@ -166,31 +166,31 @@ async def putout(q):
             # Exclusive
             elif bot.get_message(item) == '/showmeproducts':
                 if bot.strict(item):
-                    await bot.send_message(item, products.list_all_items(), get_chat=True)
+                    await bot.send_message(item, products.list_all_items())
                 else:
-                    await bot.send_message(item, 'Access denied', get_chat=True)
+                    await bot.send_message(item, 'Access denied')
             elif bot.get_message(item) == '/showmeconsigs':
                 if bot.strict(item):
-                    await bot.send_message(item, worker.list_all_consig(admin=True), get_chat=True)
+                    await bot.send_message(item, worker.list_all_consig(admin=True))
                 else:
-                    await bot.send_message(item, 'Access denied', get_chat=True)
+                    await bot.send_message(item, 'Access denied')
             elif bot.get_message(item) == '/showmecurr':
                 if bot.strict(item):
-                    await bot.send_message(item, worker.list_all_curr(), get_chat=True)
+                    await bot.send_message(item, worker.list_all_curr())
                 else:
-                    await bot.send_message(item, 'Access denied', get_chat=True)
+                    await bot.send_message(item, 'Access denied')
             elif bot.get_message(item) == '/showmeciv':
                 if bot.strict(item):
-                    await bot.send_message(item, worker.list_all_civ(admin=True), get_chat=True)
+                    await bot.send_message(item, worker.list_all_civ(admin=True))
                 else:
-                    await bot.send_message(item, 'Access denied', get_chat=True)
+                    await bot.send_message(item, 'Access denied')
             elif bot.get_message(item) == '/showmenotes':
                 if bot.strict(item):
-                    await bot.send_message(item, teleworker.list_text_for_admin(), get_chat=True)
+                    await bot.send_message(item, teleworker.list_text_for_admin())
                 else:
-                    await bot.send_message(item, 'Access denied', get_chat=True)
+                    await bot.send_message(item, 'Access denied')
             elif bot.get_message(item) == '/debug':
-                await bot.send_message(item, 'Ебаный насос, жора, где ты был?\nХодил, гулял, курил...', get_chat=True)
+                await bot.send_message(item, 'Ебаный насос, жора, где ты был?\nХодил, гулял, курил...')
 
             # Products
             # # debug

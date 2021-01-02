@@ -68,7 +68,7 @@ class Worker(Bot):
         elif user_data[6:].startswith('fluffy'):
             return 6
         else:
-            await self.send_message(data, 'Invalid consignment colour', get_chat=True)
+            await self.send_message(data, 'Invalid consignment colour')
             return False
 
     @staticmethod
@@ -117,15 +117,14 @@ class Worker(Bot):
             query = Civil.select().where(Civil.name == self.get_from_id(data))
             if query.exists():
                 print('This Civil already exists')
-                await self.send_message(data, 'You\'re already member of a consignment', get_chat=True)
+                await self.send_message(data, 'You\'re already member of a consignment')
             else:
                 if await self.consig_in_check(data):
                     consig = await self.consig_in_check(data)
                     newciv = Civil(name=self.get_from_id(data), consignment=consig)
                     newciv.save()
                     await self.send_message(data,
-                                            f'Congrats! You\'ve just joined {self.get_message(data)[6:]} consignment',
-                                            get_chat=True)
+                                            f'Congrats! You\'ve just joined {self.get_message(data)[6:]} consignment')
 
     # adds consignment to the database
     @staticmethod
@@ -184,9 +183,9 @@ class Worker(Bot):
             if check.exists():
                 query = Civil.delete().where(Civil.name == self.get_from_id(data))
                 query.execute()
-                await self.send_message(data, 'You\'ve successfully left your consignment', get_chat=True)
+                await self.send_message(data, 'You\'ve successfully left your consignment')
             else:
-                await self.send_message(data, 'You are not in the void', get_chat=True)
+                await self.send_message(data, 'You are not in the void')
 
     # lists all civilians
     @staticmethod
@@ -237,7 +236,7 @@ class Worker(Bot):
     async def send_all_consig(self, data):
         with open(f'{os.path.dirname(os.path.abspath(__file__))}/../assets/consig_list', 'r') as f:
             r = f.read()
-            await self.send_message(data, r, get_chat=True)
+            await self.send_message(data, r)
 
     # shows consignment's balance to the user
     async def send_balance(self, data):
@@ -245,9 +244,9 @@ class Worker(Bot):
         if query.exists():
             get = Civil.get(Civil.name == self.get_from_id(data))
             get_curr = Currency.get(Currency.consignment == get.consignment)
-            await self.send_message(data, f'Your consignment\'s balance: {get_curr.balance}', get_chat=True)
+            await self.send_message(data, f'Your consignment\'s balance: {get_curr.balance}')
         elif not query.exists():
-            await self.send_message(data, 'You are not in the void', get_chat=True)
+            await self.send_message(data, 'You are not in the void')
 
     # lists all consignments and their balances
     @staticmethod
