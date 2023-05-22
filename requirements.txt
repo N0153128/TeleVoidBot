@@ -1,5 +1,5 @@
 peewee
-requests==2.23.0
+requests==2.31.0
 telegraph==1.4.0
 ujson
 aiohttp
