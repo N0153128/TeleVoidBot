@@ -22,6 +22,8 @@ import sys
 
 # initializing objects
 bot = Bot(token=sys.argv[1])
+send = bot.send_message
+get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
 mods = mods.Mods()
 log = logmod.Loger()
@@ -72,8 +74,8 @@ async def putout(q):
                 pass
 
             # messages
-            if bot.get_message(item) == '/debug':
-                await bot.send_message(item, 'Ping')
+            if get(item) == '/debug':
+                await send(item, 'Ping')
 
         except Exception as e:
             print(e)
