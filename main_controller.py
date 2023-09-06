@@ -7,6 +7,7 @@ from mods import teleworker
 import asyncio
 from multiprocessing import Process
 import sys
+from web import RestfulInteract
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -28,6 +29,7 @@ print(f'\nUsing token: {bot.token}\n')
 mods = mods.Mods()
 log = logmod.Loger()
 teleworker = teleworker.Worker()
+rest = RestfulInteract()
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -76,6 +78,10 @@ async def putout(q):
             # messages
             if get(item) == '/debug':
                 await send(item, 'Ping')
+            elif get(item).startswith('/post'):
+                title, text = rest.get_data(bot.get_message(item))
+                rest.post(title, text)
+                await send(item, 'Post sent!')
 
         except Exception as e:
             print(e)
