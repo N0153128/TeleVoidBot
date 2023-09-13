@@ -8,6 +8,7 @@ import asyncio
 from multiprocessing import Process
 import sys
 from web import RestfulInteract
+from settings import ADMIN
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -76,12 +77,13 @@ async def putout(q):
                 pass
 
             # messages
-            if get(item) == '/debug':
-                await send(item, 'Ping')
-            elif get(item).startswith('/post'):
-                title, text = rest.get_data(bot.get_message(item))
-                rest.post(title, text)
-                await send(item, 'Post sent!')
+            if bot.get_chat_id(item) == ADMIN:
+                if get(item) == '/debug':
+                    await send(item, 'Ping')
+                elif get(item).startswith('/post'):
+                    title, text = rest.get_data(bot.get_message(item))
+                    rest.post(title, text)
+                    await send(item, 'Post sent!')
 
         except Exception as e:
             print(e)
