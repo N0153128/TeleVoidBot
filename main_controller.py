@@ -1,5 +1,5 @@
 # coding=utf8
-from newbot import Bot
+from telegram_handler import Bot
 from tools import logmod
 from mods import mods
 import time

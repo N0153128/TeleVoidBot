@@ -1,5 +1,5 @@
 from peewee import *
-from newbot import Bot
+from telegram_handler import Bot
 import os
 
 database = SqliteDatabase(f'{os.path.dirname(os.path.abspath(__file__))}/Database.db')

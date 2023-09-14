@@ -1,5 +1,5 @@
 import requests
-from newbot import Bot
+from telegram_handler import Bot
 import webcreds
 from requests.auth import HTTPBasicAuth
 

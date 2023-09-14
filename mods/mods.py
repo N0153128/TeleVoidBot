@@ -1,5 +1,5 @@
 import random
-from newbot import Bot
+from telegram_handler import Bot
 from telegraph import Telegraph
 import re
 import time
