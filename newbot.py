@@ -2,9 +2,13 @@ import ujson
 import aiohttp
 import time
 import settings
+from tools import logmod
+
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
 # needs an object of get_all() (mostly called 'data') in order to return the value
+
+log = logmod.Loger()
 
 
 class Bot(object):
@@ -17,6 +21,26 @@ class Bot(object):
     async def get_all(self):
         async with self.session.get(f'{self.link}/getUpdates') as response:
             return await response.json()
+        
+# defining the function that would look up for updates and put it in a queue. every message that bot receives gets
+# logged. when this function receives a message - it checks for spamming. if spam returns true - it will start up a
+# process that would handle the message.
+        
+    async def loop_void(self, queue, data_resolver):
+        while True:
+            try:
+                data = await self.get_all()
+                offset = self.get_id(data) + 1
+                await log.log_saver(str(self.get_name(data)), str(self.get_from_id(data)), str(self.get_message(data)),
+                                    self.get_chat_type(data), self.get_chat_id(data), self.get_username_or_first_name(data))
+                # if spam.checker(bot.get_chat_id(data)):
+                await queue.put(data)
+                await self.session.get(self.link + '/getUpdates?offset=' + str(offset))
+                await data_resolver(queue)
+                # elif not spam.checker(bot.get_chat_id(data)):
+                #     requests.get(bot.link + '/getUpdates?offset=' + str(offset))
+            except (IndexError, KeyError, TypeError):
+                pass
 
     @staticmethod
     def get_id(data):

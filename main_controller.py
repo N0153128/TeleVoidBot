@@ -43,34 +43,13 @@ print(f'Started @ {localtime}')
 print('Activated...')
 
 
-# defining the function that would look up for updates and put it in a queue. every message that bot receives gets
-# logged. when this function receives a message - it checks for spamming. if spam returns true - it will start up a
-# process that would handle the message.
-async def putin(q):
-    while True:
-        try:
-            data = await bot.get_all()
-            offset = bot.get_id(data) + 1
-            await log.log_saver(str(bot.get_name(data)), str(bot.get_from_id(data)), str(bot.get_message(data)),
-                                bot.get_chat_type(data), bot.get_chat_id(data), bot.get_username_or_first_name(data))
-            # if spam.checker(bot.get_chat_id(data)):
-            await q.put(data)
-            await bot.session.get(bot.link + '/getUpdates?offset=' + str(offset))
-            await putout(queue)
-            # elif not spam.checker(bot.get_chat_id(data)):
-            #     requests.get(bot.link + '/getUpdates?offset=' + str(offset))
-        except (IndexError, KeyError, TypeError):
-            pass
-
-
-async def gen(data):
+async def feed(data):
     d = await data.get()
     yield d
 
-
 # this function is the message handler. every command is hardcoded for both private and group chats
-async def putout(q):
-    async for item in gen(q):
+async def webapi_handler(q):
+    async for item in feed(q):
         try:
             # callbacks
             if bot.is_callback(item):
@@ -90,6 +69,6 @@ async def putout(q):
 
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(putin(queue))
+loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
 # starting processes that would check for new messages and start adding currency for the consignments
