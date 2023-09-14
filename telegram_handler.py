@@ -3,6 +3,8 @@ import aiohttp
 import time
 import settings
 from tools import logmod
+from random import randint
+import asyncio
 
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
@@ -41,6 +43,9 @@ class Bot(object):
                 #     requests.get(bot.link + '/getUpdates?offset=' + str(offset))
             except (IndexError, KeyError, TypeError):
                 pass
+            except aiohttp.client_exceptions.ClientOSError as e:
+                await asyncio.sleep(3 + randint(0, 9))
+
 
     @staticmethod
     def get_id(data):
