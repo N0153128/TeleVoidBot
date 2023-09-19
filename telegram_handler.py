@@ -38,7 +38,7 @@ class Bot(object):
                 # if spam.checker(bot.get_chat_id(data)):
                 await queue.put(data)
                 await self.session.get(self.link + '/getUpdates?offset=' + str(offset))
-                await data_resolver(queue)
+                await data_resolver(queue, admin=True)
                 # elif not spam.checker(bot.get_chat_id(data)):
                 #     requests.get(bot.link + '/getUpdates?offset=' + str(offset))
             except (IndexError, KeyError, TypeError):

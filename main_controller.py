@@ -48,7 +48,7 @@ async def feed(data):
     yield d
 
 # this function is the message handler. every command is hardcoded for both private and group chats
-async def webapi_handler(q):
+async def webapi_handler(q, admin):
     async for item in feed(q):
         try:
             # callbacks
@@ -56,16 +56,22 @@ async def webapi_handler(q):
                 pass
 
             # messages
-            if bot.get_chat_id(item) == ADMIN:
-                if get(item) == '/debug':
-                    await send(item, 'Ping')
-                elif get(item).startswith('/post'):
-                    title, text = rest.get_data(bot.get_message(item))
-                    rest.post(title, text)
-                    await send(item, 'Post sent!')
+            if admin:
+                if bot.get_chat_id(item) == ADMIN:
+                    await command_cycle(item)
+            elif not admin:
+                  await command_cycle(item)
 
         except Exception as e:
             print(e)
+
+async def command_cycle(data):
+    if get(data) == '/debug':
+        await send(data, 'Ping')
+    elif get(data).startswith('/post'):
+        title, text = rest.get_data(bot.get_message(data))
+        rest.post(title, text)
+        await send(data, 'Post sent!')
 
 
 loop = asyncio.get_event_loop()
