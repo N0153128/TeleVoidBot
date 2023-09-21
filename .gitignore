@@ -4,3 +4,5 @@ __pycache__
 lib
 webcreds.py
 general.log
+share
+venv
