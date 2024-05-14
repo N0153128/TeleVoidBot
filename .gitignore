@@ -6,3 +6,4 @@ webcreds.py
 general.log
 share
 venv
+scenarios/motd/config.py
