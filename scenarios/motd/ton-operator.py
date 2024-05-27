@@ -3,6 +3,7 @@ from pytonapi.schema.rates import Rates, ChartRates
 from pytonapi.tonapi import TonapiClient
 from pytonapi import Tonapi
 from config import *
+import json
 # a config.py file must be created, containing the following variables:
 # API_KEY - containing user's ton api key
 # ACCOUNT_ID - also known as ton wallet address
@@ -59,4 +60,8 @@ class RatesMethod(TonapiClient):
 
 rates = RatesMethod(API_KEY)
 rates_obj = rates.get_prices(tokens=['TON', 'EQBCFwW8uFUh-amdRmNY9NyeDEaeDYXd9ggJGsicpqVcHq7B'], currencies=['TON', 'GBP'])
-print(rates_obj)
+rates_json = json.loads(rates_obj.json())
+gbp_rate = rates_json['rates']['TON']['prices']['GBP']
+balance = get_balance()
+
+print(f'current balance: {round(balance*gbp_rate, 2)}')
