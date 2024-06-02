@@ -1,5 +1,8 @@
 peewee
-requests==2.23.0
-telegraph==1.4.0
+requests
+telegraph
 ujson
 aiohttp
+pytonapi
+GitPython
+

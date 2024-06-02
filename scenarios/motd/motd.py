@@ -1,36 +1,48 @@
-import python_weather
+import git
+from typing import Dict, List, Optional
+from pytonapi.schema.rates import Rates
+from pytonapi.tonapi import TonapiClient
+from pytonapi import Tonapi
+from config import *
+import json
 
-import asyncio
-import os
+class Motd(TonapiClient):
+    def __init__(self, api_key: str, is_testnet: bool | None = False, max_retries: int | None = None, base_url: str | None = None, headers: Dict[str, any] | None = None, timeout: float | None = None) -> None:
+        super().__init__(api_key, is_testnet, max_retries, base_url, headers, timeout)
+        
+        self.rates_obj = self.get_prices(tokens=['TON', 'EQBCFwW8uFUh-amdRmNY9NyeDEaeDYXd9ggJGsicpqVcHq7B'], currencies=['TON', 'GBP'])
+        self.rates_json = json.loads(self.rates_obj.json())
+        self.gbp_rate = self.rates_json['rates']['TON']['prices']['GBP']
+        self.balance = self.get_balance()
 
-async def getweather():
-  # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
-  async with python_weather.Client(unit=python_weather.METRIC) as client:
-    # fetch a weather forecast from a city
-    weather = await client.get('St Neots')
+    def get_git_commits(self, path):
+        repo = git.Repo(path)
+        return repo.git.rev_list('--count', 'HEAD')
     
-    # returns the current day's forecast temperature (int)
-    print(f'temp: {weather.temperature}')
-    print(f'date and time: {weather.datetime}')
-    print(f'feels like: {weather.feels_like}')
-    print(f'kind: {weather.kind}')
-    print(f'unit: {weather.unit}')
-    print(f'wind speed: {weather.wind_speed}')
-    print(f'visibility: {weather.visibility}')
-  
 
-    # # get the weather forecast for a few days
-    # for daily in weather.daily_forecasts:
-    #   print(daily)
-      
-    #   # hourly forecasts
-    #   for hourly in daily.hourly_forecasts:
-    #     print(f' --> {hourly!r}')
+    def get_balance(self, ):
+        # Creating new Tonapi object
+        tonapi = Tonapi(api_key=API_KEY)
+        account = tonapi.accounts.get_info(account_id=ACCOUNT_ID)
+        return account.balance.to_amount()
+    
+    def get_prices(self, tokens: List[str], currencies: List[str]) -> Rates:
+        params = {
+            'tokens': ','.join(map(str, tokens)),
+            'currencies': ','.join(map(str, currencies)),
+        }
+        method = f"v2/rates"
+        response = self._get(method=method, params=params)
 
-if __name__ == '__main__':
-  # see https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
-  # for more details
-  if os.name == 'nt':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-  
-  asyncio.run(getweather())
+        return Rates(**response)
+    
+
+motd = Motd(API_KEY)
+
+print(f'Commits for Void Bot: {motd.get_git_commits(VOID_BOT)}')
+print(f'Commits for ALTNET: {motd.get_git_commits(ALTNET)}')
+print(f'Commits for DigiRunner: {motd.get_git_commits(DIGIRUNNER)}')
+print(f'Commits for N0153.tech: {motd.get_git_commits(N0153WEB)}\n')
+print(f'Ton balance: {motd.balance}')
+print(f'Ton Pirce: {round(motd.gbp_rate, 2)}')
+print(f'current balance: {round(motd.balance*motd.gbp_rate, 2)}')
