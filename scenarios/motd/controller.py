@@ -3,21 +3,21 @@ from telegram_handler import Bot
 from tools import logmod
 from mods import mods
 import time
-from mods import teleworker
 import asyncio
 from multiprocessing import Process
 import sys
 from web import RestfulInteract
 from settings import ADMIN
+from motd import *
+from config import *
 
-
+motd = Motd(API_KEY)
 bot = Bot(token=sys.argv[1])
 send = bot.send_message
 get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
 mods = mods.Mods()
 log = logmod.Loger()
-teleworker = teleworker.Worker()
 rest = RestfulInteract()
 
 # initializing variables
@@ -55,7 +55,7 @@ async def webapi_handler(q, admin):
 
 async def command_cycle(data):
     if get(data) == '/debug':
-        await send(data, 'Ping')
+        await motd.begin_push()
     elif get(data).startswith('/post'):
         title, text = rest.get_data(bot.get_message(data))
         rest.post(title, text)
@@ -66,25 +66,3 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
 # starting processes that would check for new messages and start adding currency for the consignments
-
-
-mock = '''
-24 have passed, wake up.
-Current Weather:
-# Highest temperature today: 
-# Rain possibility:
-
-Ton wallet balance: +
-Ton wallet value: +
-
-Repo 1: number of commits +
-Repo 2: number of commits +
-Repo 3: number of commits +
-Repo 4: number of commits +
-
-Unread emails: 
-
-Ton difference: (24h)
-
-
-'''

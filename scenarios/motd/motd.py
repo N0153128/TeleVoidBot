@@ -5,6 +5,7 @@ from pytonapi.tonapi import TonapiClient
 from pytonapi import Tonapi
 from config import *
 import json
+import asyncio
 
 class Motd(TonapiClient):
     def __init__(self, api_key: str, is_testnet: bool | None = False, max_retries: int | None = None, base_url: str | None = None, headers: Dict[str, any] | None = None, timeout: float | None = None) -> None:
@@ -36,13 +37,41 @@ class Motd(TonapiClient):
 
         return Rates(**response)
     
+    def get_payload(self):
+        # print(f'Commits for Void Bot: {motd.get_git_commits(VOID_BOT)}')
+        # print(f'Commits for ALTNET: {motd.get_git_commits(ALTNET)}')
+        # print(f'Commits for DigiRunner: {motd.get_git_commits(DIGIRUNNER)}')
+        # print(f'Commits for N0153.tech: {motd.get_git_commits(N0153WEB)}\n')
+        # print(f'Ton balance: {motd.balance}')
+        # print(f'Ton Pirce: {round(motd.gbp_rate, 2)}')
+        # print(f'current balance: {round(motd.balance*motd.gbp_rate, 2)}')
+        payload = f'''
+            24 have passed, wake up.
+            Current Weather:
+            # Highest temperature today: 
+            # Rain possibility:
 
-motd = Motd(API_KEY)
+            Ton coins holding: {motd.balance}
+            Ton Pirce: {round(motd.gbp_rate, 2)}
+            current balance: {round(motd.balance*motd.gbp_rate, 2)}
 
-print(f'Commits for Void Bot: {motd.get_git_commits(VOID_BOT)}')
-print(f'Commits for ALTNET: {motd.get_git_commits(ALTNET)}')
-print(f'Commits for DigiRunner: {motd.get_git_commits(DIGIRUNNER)}')
-print(f'Commits for N0153.tech: {motd.get_git_commits(N0153WEB)}\n')
-print(f'Ton balance: {motd.balance}')
-print(f'Ton Pirce: {round(motd.gbp_rate, 2)}')
-print(f'current balance: {round(motd.balance*motd.gbp_rate, 2)}')
+            Commits for Void Bot: {motd.get_git_commits(VOID_BOT)}
+            Commits for ALTNET: {motd.get_git_commits(ALTNET)}
+            Commits for DigiRunner: {motd.get_git_commits(DIGIRUNNER)}
+            Commits for N0153.tech: {motd.get_git_commits(N0153WEB)}\n
+
+            Unread emails: 
+
+            Ton difference: (24h)
+
+            '''
+
+        return payload
+
+
+    async def begin_push(self, item):
+        while True:
+            payload = self.get_payload()
+            await self.send_message(item, message=payload)
+            asyncio.sleep(3)
+
