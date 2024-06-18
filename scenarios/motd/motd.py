@@ -51,14 +51,14 @@ class Motd(TonapiClient):
             # Highest temperature today: 
             # Rain possibility:
 
-            Ton coins holding: {motd.balance}
-            Ton Pirce: {round(motd.gbp_rate, 2)}
-            current balance: {round(motd.balance*motd.gbp_rate, 2)}
+            Ton coins holding: {self.balance}
+            Ton Pirce: {round(self.gbp_rate, 2)}
+            current balance: {round(self.balance*self.gbp_rate, 2)}
 
-            Commits for Void Bot: {motd.get_git_commits(VOID_BOT)}
-            Commits for ALTNET: {motd.get_git_commits(ALTNET)}
-            Commits for DigiRunner: {motd.get_git_commits(DIGIRUNNER)}
-            Commits for N0153.tech: {motd.get_git_commits(N0153WEB)}\n
+            Commits for Void Bot: {self.get_git_commits(VOID_BOT)}
+            Commits for ALTNET: {self.get_git_commits(ALTNET)}
+            Commits for DigiRunner: {self.get_git_commits(DIGIRUNNER)}
+            Commits for N0153.tech: {self.get_git_commits(N0153WEB)}\n
 
             Unread emails: 
 
@@ -72,6 +72,7 @@ class Motd(TonapiClient):
     async def begin_push(self, item):
         while True:
             payload = self.get_payload()
-            await self.send_message(item, message=payload)
-            asyncio.sleep(3)
+            await asyncio.sleep(3)
+            return payload
+
 

@@ -1,6 +1,6 @@
 import random
 from telegram_handler import Bot
-from telegraph import Telegraph
+# from telegraph import Telegraph
 import re
 import time
 from . import teleworker

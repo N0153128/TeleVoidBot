@@ -11,3 +11,6 @@ scenarios/telegraph - allows to create and quickly access created notes using Te
 
 ### How to Run
 Run this bot with 'python3 main_controller BOT_API_KEY'
+
+### TODO:
+automatically create logs/general.log file for general logging
