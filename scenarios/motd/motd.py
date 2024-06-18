@@ -72,7 +72,6 @@ class Motd(TonapiClient):
     async def begin_push(self, item):
         while True:
             payload = self.get_payload()
-            await asyncio.sleep(3)
             return payload
 
 

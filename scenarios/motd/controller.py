@@ -1,12 +1,9 @@
 # coding=utf8
 from telegram_handler import Bot
 from tools import logmod
-# from mods import mods
 import time
 import asyncio
-from multiprocessing import Process
 import sys
-# from web import RestfulInteract
 from settings import ADMIN
 from motd import *
 from config import *
@@ -16,9 +13,7 @@ bot = Bot(token=sys.argv[1])
 send = bot.send_message
 get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
-# mods = mods.Mods()
 log = logmod.Loger()
-# rest = RestfulInteract()
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -44,23 +39,15 @@ async def webapi_handler(q, admin):
                 pass
 
             # messages
-            if admin:
-                if bot.get_chat_id(item) == ADMIN:
-                    await send(item, message=await motd.begin_push(item))
-            elif not admin:
-                  await send(item, message=await motd.begin_push(item))
+            if get(item) == '/start':
+                if admin:
+                    if bot.get_chat_id(item) == ADMIN:
+                        await send(item, message=await motd.begin_push(item))
+                elif not admin:
+                    pass
 
         except Exception as e:
             print(e)
-
-# async def command_cycle(data):
-#     if get(data) == '/debug':
-#         await motd.begin_push()
-#     elif get(data).startswith('/post'):
-#         title, text = rest.get_data(bot.get_message(data))
-#         rest.post(title, text)
-#         await send(data, 'Post sent!')
-
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
