@@ -9,7 +9,7 @@ from motd import *
 from config import *
 
 motd = Motd(API_KEY)
-bot = Bot(token=sys.argv[1])
+bot = Bot(BOT_KEY)
 send = bot.send_message
 get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')

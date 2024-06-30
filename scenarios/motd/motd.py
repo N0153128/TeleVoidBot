@@ -74,4 +74,5 @@ class Motd(TonapiClient):
             payload = self.get_payload()
             return payload
 
-
+motd = Motd(API_KEY)
+print(motd.get_payload())

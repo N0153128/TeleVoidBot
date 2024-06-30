@@ -7,3 +7,5 @@ general.log
 share
 venv
 scenarios/motd/config.py
+settings.py
+settings.py

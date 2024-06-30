@@ -13,7 +13,7 @@ class Mods(teleworker.Worker):
     def __init__(self):
         super().__init__()
         self.tph = Telegraph()
-        self.bot = Bot(token=sys.argv[1])
+        self.bot = Bot(settings.BOT_KEY)
 
     # /8ball method
     async def ball(self, data):

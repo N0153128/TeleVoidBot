@@ -8,7 +8,7 @@ import asyncio
 from multiprocessing import Process
 import sys
 from web import RestfulInteract
-from settings import ADMIN
+from settings import *
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -23,11 +23,10 @@ from settings import ADMIN
 # get_chat: arbitrary argument, if specified - uses get_chat_id, instead of get_from_id
 
 # initializing objects
-bot = Bot(token=sys.argv[1])
+bot = Bot(BOT_KEY)
 send = bot.send_message
 get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
-mods = mods.Mods()
 log = logmod.Loger()
 teleworker = teleworker.Worker()
 rest = RestfulInteract()
