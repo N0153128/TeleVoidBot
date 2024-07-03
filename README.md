@@ -15,3 +15,6 @@ Run this bot with 'python3 main_controller BOT_API_KEY'
 ### TODO:
 ~~automatically create logs/general.log file for general logging.~~
 implement conditional MOTDs, where a user would report their condition to the bot and the next message will be tailored to the condition. Example 1: the user is feeling happy - the weather and wallet balance will be bolded. Example 2: the user is feeling sick - a tailored message, wishing them to get well will be displayed, money related rows will be removed.
+add weather forecast for motd - highest & lowest temp + rain possibility
+add unread email counter for motd
+add ton difference 24h for motd
