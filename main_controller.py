@@ -7,7 +7,7 @@ from mods import teleworker
 import asyncio
 from multiprocessing import Process
 import sys
-from web import RestfulInteract
+# from web import RestfulInteract
 from settings import *
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
@@ -29,7 +29,7 @@ get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
 log = logmod.Loger()
 teleworker = teleworker.Worker()
-rest = RestfulInteract()
+# rest = RestfulInteract()
 
 # initializing variables
 upd = bot.link + '/getUpdates'
