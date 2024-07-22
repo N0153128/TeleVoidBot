@@ -9,6 +9,7 @@ from multiprocessing import Process
 import sys
 # from web import RestfulInteract
 from settings import *
+from scenarios.motd.motd_controller import motd_loop
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -30,6 +31,7 @@ print(f'\nUsing token: {bot.token}\n')
 log = logmod.Loger()
 teleworker = teleworker.Worker()
 # rest = RestfulInteract()
+# motd = motd.Motd(api_key='AE55VET32XKPKIAAAAAMVUYLXFDRRK2RAWDDJJEHZ4TQAJ27BVPNTAMSRCJ7TMQDXQPZ3DY')
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -67,13 +69,13 @@ async def webapi_handler(q, admin):
 async def command_cycle(data):
     if get(data) == '/debug':
         await send(data, 'Ping')
-    elif get(data).startswith('/post'):
-        title, text = rest.get_data(bot.get_message(data))
-        rest.post(title, text)
-        await send(data, 'Post sent!')
+    elif get(data).startswith('/bal'):
+        pass
+        # await send(data, motd.balance)
+
 
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
-# starting processes that would check for new messages and start adding currency for the consignments
+# starting processes that would check for new messages and start processing them

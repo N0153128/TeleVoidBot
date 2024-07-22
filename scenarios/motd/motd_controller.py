@@ -1,19 +1,18 @@
 # coding=utf8
 from telegram_handler import Bot
-from tools import logmod
 import time
 import asyncio
 import sys
 from settings import ADMIN
-from motd import *
+from scenarios.motd.motd import *
 from config import *
+from settings import *
 
 motd = Motd(API_KEY)
 bot = Bot(BOT_KEY)
 send = bot.send_message
 get = bot.get_message
 print(f'\nUsing token: {bot.token}\n')
-log = logmod.Loger()
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -49,7 +48,8 @@ async def webapi_handler(q, admin):
         except Exception as e:
             print(e)
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
+async def motd_loop():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
 # starting processes that would check for new messages and start adding currency for the consignments

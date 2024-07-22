@@ -8,3 +8,4 @@ share
 venv
 scenarios/motd/config.py
 settings.py
+config.py
