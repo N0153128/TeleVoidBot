@@ -6,10 +6,12 @@ import time
 from mods import teleworker
 import asyncio
 from multiprocessing import Process
+import threading
 import sys
 # from web import RestfulInteract
 from settings import *
 from scenarios.motd.motd_controller import motd_loop
+from scenarios.motd.motd_controller import webapi_handler as motd_handler
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -73,9 +75,18 @@ async def command_cycle(data):
         pass
         # await send(data, motd.balance)
 
+def loop_main():
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=motd_handler))
 
+def alt_loop():
+    loop2 = asyncio.get_event_loop()
+    loop2.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
+t1 = threading.Thread(target=loop_main())
+t1.start()
+
+t2 = threading.Thread(target=alt_loop())
+t2.start()
 
 # starting processes that would check for new messages and start processing them
