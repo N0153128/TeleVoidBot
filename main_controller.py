@@ -10,8 +10,8 @@ import threading
 import sys
 # from web import RestfulInteract
 from settings import *
-from scenarios.motd.motd_controller import motd_loop
-from scenarios.motd.motd_controller import webapi_handler as motd_handler
+# from scenarios.motd.motd_controller import motd_loop
+from scenarios.motd.motd_controller import motd_handler, motd_commands
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
 # Key-Arguments: data, fore, inline, get_chat, item, dirty
@@ -61,7 +61,10 @@ async def webapi_handler(q, admin):
             # messages
             if admin:
                 if bot.get_chat_id(item) == ADMIN:
-                    await command_cycle(item)
+                    if get(item) in motd_commands:
+                        await motd_handler(item)
+                    else:
+                        await command_cycle(item)
             elif not admin:
                   await command_cycle(item)
 
@@ -75,18 +78,12 @@ async def command_cycle(data):
         pass
         # await send(data, motd.balance)
 
-def loop_main():
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=motd_handler))
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=motd_handler))
 
-def alt_loop():
-    loop2 = asyncio.get_event_loop()
-    loop2.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 
-t1 = threading.Thread(target=loop_main())
-t1.start()
-
-t2 = threading.Thread(target=alt_loop())
-t2.start()
+loop2 = asyncio.get_event_loop()
+loop2.create_task(bot.loop_void(queue=queue, data_resolver=webapi_handler))
+loop2.run_forever()
 
 # starting processes that would check for new messages and start processing them
