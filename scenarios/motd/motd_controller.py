@@ -3,7 +3,6 @@ from telegram_handler import Bot
 import time
 import asyncio
 import sys
-from settings import ADMIN
 from scenarios.motd.motd import *
 from config import *
 from settings import *
@@ -12,7 +11,7 @@ motd = Motd(API_KEY)
 bot = Bot(BOT_KEY)
 send = bot.send_message
 get = bot.get_message
-print(f'\nUsing token: {bot.token}\n')
+# print(f'\nUsing token: {bot.token}\n')
 
 # initializing variables
 upd = bot.link + '/getUpdates'
@@ -21,8 +20,8 @@ localtime = time.asctime(time.localtime(time.time()))
 launchtime = time.time()
 
 # printing startup message
-print(f'Started @ {localtime}')
-print('Activated...')
+# print(f'Started @ {localtime}')
+# print('Activated...')
 
 motd_commands = ['/start']
 

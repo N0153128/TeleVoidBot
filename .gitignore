@@ -9,3 +9,4 @@ venv
 scenarios/motd/config.py
 settings.py
 config.py
+scenarios/motd/settings.py

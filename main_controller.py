@@ -82,6 +82,9 @@ async def command_cycle(data):
 # loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=motd_handler))
 
 
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=webapi_handler))
+
 loop2 = asyncio.get_event_loop()
 loop2.create_task(bot.loop_void(queue=queue, data_resolver=webapi_handler))
 loop2.run_forever()
