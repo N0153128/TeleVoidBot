@@ -1,19 +1,25 @@
+from initial import Initial
+from settings import *  
+from scenarios.motd.motd_controller import motd_handler, motd_commands
+import asyncio
+from telegram_handler import Bot
 
-from initial import *
 
+base = Initial()
+base.startup_time()
 
 # this function is the message handler. every command is hardcoded for both private and group chats
 async def webapi_handler(q, admin):
-    async for item in feed(q):
+    async for item in base.feed(q):
         try:
             # callbacks
-            if bot.is_callback(item):
+            if base.bot.is_callback(item):
                 pass
 
             # messages
             if admin:
-                if bot.get_chat_id(item) == ADMIN:
-                    if get(item) in motd_commands:
+                if base.bot.get_chat_id(item) == ADMIN:
+                    if base.get(item) in motd_commands:
                         await motd_handler(item)
                     else:
                         await command_cycle(item)
@@ -24,16 +30,12 @@ async def webapi_handler(q, admin):
             print(e)
 
 async def command_cycle(data):
-    if get(data) == '/debug':
-        await send(data, 'Ping')
-    elif get(data).startswith('/bal'):
+    if base.get(data) == '/debug':
+        await base.send(data, 'Ping')
+    elif base.get(data).startswith('/bal'):
         pass
         # await send(data, motd.balance)
 
-# loop = asyncio.get_event_loop()
-# loop.run_until_complete(bot.loop_void(queue=queue, data_resolver=motd_handler))
-
 loop2 = asyncio.get_event_loop()
-loop2.create_task(bot.loop_void(queue=queue, data_resolver=webapi_handler))
+loop2.create_task(base.bot.loop_void(queue=base.queue, data_resolver=webapi_handler))
 loop2.run_forever()
-
