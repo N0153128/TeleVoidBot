@@ -1,8 +1,9 @@
 # Void Bot
 
 ### What is Void Bot?
-Void Bot - is a general purpose Telegram Bot made to add more features to both group and personal chats.
-Currently implemented feature:
+Void Bot - is a general purpose Telegram Bot made to streamline bot creation process.
+This bot can also add more features to both group and personal chats out of the box, as part of its Example modules.
+Currently implemented features:
 scenarios/motd - Work in progress
 scenarios/political party - allows group chat members to separate into various parties and earn in-chat currency to redeem special actions.
 scenarios/roleplay - allows group chat members to express their actions within a group chat using commands.
@@ -10,7 +11,9 @@ scenarios/telegraph - allows to create and quickly access created notes using Te
 
 
 ### How to Run
-Run this bot with 'python3 main_controller BOT_API_KEY'
+- ```pip install -r requirements.txt ```
+- Add your bot's API token to the ``Settings.py``
+- Run the bot with ``python main_controller BOT_API_KEY``
 
 ### TODO:
 ~~automatically create logs/general.log file for general logging.~~
@@ -18,3 +21,6 @@ implement conditional MOTDs, where a user would report their condition to the bo
 add weather forecast for motd - highest & lowest temp + rain possibility
 add unread email counter for motd
 add ton difference 24h for motd
+
+### Known Issues
+- the bot would randomly crash if it was launched outside of the Docker environment.

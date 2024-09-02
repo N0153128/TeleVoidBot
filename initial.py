@@ -40,4 +40,3 @@ class Initial():
     def startup_time(self):
         print(f'Started @ {self.localtime}')
         print('Activated...')
-
