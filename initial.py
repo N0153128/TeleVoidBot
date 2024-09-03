@@ -1,6 +1,5 @@
 # coding=utf8
 from telegram_handler import Bot
-from tools import logmod
 from mods import mods
 import time
 from mods import teleworker
@@ -28,7 +27,6 @@ class Initial():
         self.get = self.bot.get_message
         self.queue = asyncio.Queue()
         self.upd = self.bot.link + '/getUpdates'
-        self.log = logmod.Loger()
         self.teleworker = teleworker.Worker()
         self.localtime = time.asctime(time.localtime(time.time()))
         self.launchtime = time.time()
