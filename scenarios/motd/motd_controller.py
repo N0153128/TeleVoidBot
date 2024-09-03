@@ -1,6 +1,5 @@
 # coding=utf8
 # from scenarios.motd.boilerplate import *
-import asyncio
 from initial import Initial
 from scenarios.motd.motd import Motd
 from config import *
