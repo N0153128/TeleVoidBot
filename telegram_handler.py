@@ -2,15 +2,15 @@ import ujson
 import aiohttp
 import time
 import settings
-from tools import logmod
 from random import randint
 import asyncio
+import logging
+import os
+
 
 
 # this class gets updates from telegram api and sorts the data. most of the methods are self-explanatory. most of them
 # needs an object of get_all() (mostly called 'data') in order to return the value
-
-log = logmod.Loger()
 
 
 class Bot(object):
@@ -19,6 +19,7 @@ class Bot(object):
         self.token = token
         self.link = f'https://api.telegram.org/bot{self.token}'
         self.session = aiohttp.ClientSession()
+        self.watchlist = {}
 
     async def get_all(self):
         async with self.session.get(f'{self.link}/getUpdates') as response:
@@ -33,7 +34,7 @@ class Bot(object):
             try:
                 data = await self.get_all()
                 offset = self.get_id(data) + 1
-                await log.log_saver(str(self.get_name(data)), str(self.get_from_id(data)), str(self.get_message(data)),
+                await self.log_saver(str(self.get_name(data)), str(self.get_from_id(data)), str(self.get_message(data)),
                                     self.get_chat_type(data), self.get_chat_id(data), self.get_username_or_first_name(data))
                 # if spam.checker(bot.get_chat_id(data)):
                 await queue.put(data)
@@ -46,6 +47,29 @@ class Bot(object):
             except aiohttp.client_exceptions.ClientOSError as e:
                 await asyncio.sleep(3 + randint(0, 9))
 
+    # Logging method
+    @staticmethod
+    async def log_saver(name, uid, message, ctype, cid, uname):
+        if os.path.exists('./logs/general.log'):
+            pass
+        else:
+            os.mkdir('./logs')
+            logging.basicConfig(filename=f'{os.path.dirname(os.path.abspath(__file__))}/../logs/general.log', level=logging.INFO,
+                                format='%(asctime)s:%(message)s')
+            logging.info('TYPE {}-{} BY @{}-{}, ID {} : {}'.format(ctype, cid, uname, name, uid, message))
+
+    # Spam protection method
+    def checker(self, uid):
+        if uid in self.watchlist:
+            if int(time.time())-int(self.watchlist[uid]) < 3:
+                self.watchlist.update({uid: int(time.time())})
+                return False
+            elif int(time.time())-int(self.watchlist[uid]) >= 3:
+                self.watchlist.update({uid: int(time.time())})
+                return True
+        elif uid not in self.watchlist:
+            self.watchlist.update({uid: int(time.time())})
+            return True
 
     @staticmethod
     def get_id(data):
@@ -412,3 +436,4 @@ class Bot(object):
 
     def strict(self, data):
         return self.get_from_id(data) == settings.ADMIN
+    
