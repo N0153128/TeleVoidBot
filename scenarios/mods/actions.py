@@ -3,12 +3,12 @@ from telegram_handler import Bot
 # from telegraph import Telegraph
 import re
 import time
-from . import teleworker
+from . import telegraph_handler
 import sys
 import settings
 
 
-class Mods(teleworker.Worker):
+class Mods(telegraph_handler.Worker):
 
     def __init__(self):
         super().__init__()

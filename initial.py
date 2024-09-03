@@ -1,8 +1,8 @@
 # coding=utf8
 from telegram_handler import Bot
-from mods import mods
+from mods import actions
 import time
-from mods import teleworker
+from mods import telegraph_handler
 import asyncio
 from settings import *
 
@@ -27,7 +27,7 @@ class Initial():
         self.get = self.bot.get_message
         self.queue = asyncio.Queue()
         self.upd = self.bot.link + '/getUpdates'
-        self.teleworker = teleworker.Worker()
+        self.teleworker = telegraph_handler.Worker()
         self.localtime = time.asctime(time.localtime(time.time()))
         self.launchtime = time.time()
 
