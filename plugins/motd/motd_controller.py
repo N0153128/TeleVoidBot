@@ -1,7 +1,7 @@
 # coding=utf8
 # from scenarios.motd.boilerplate import *
 from initial import Initial
-from scenarios.motd.motd import Motd
+from plugins.motd.motd import Motd
 from config import *
 
 base = Initial()
