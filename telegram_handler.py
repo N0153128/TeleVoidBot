@@ -1,7 +1,7 @@
 import ujson
 import aiohttp
 import time
-import settings
+import config
 from random import randint
 import asyncio
 import logging
@@ -435,5 +435,5 @@ class Bot(object):
         await self.session.post(address, data=self.make_photo(self.get_chat_id(data), link))
 
     def strict(self, data):
-        return self.get_from_id(data) == settings.ADMIN
+        return self.get_from_id(data) == config.ADMIN
     

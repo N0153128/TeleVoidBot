@@ -3,7 +3,7 @@
 
 
 from initial import Initial
-from settings import *  
+from config import *  
 from plugins.motd.motd_controller import motd_handler, motd_commands
 import asyncio
 from telegram_handler import Bot
