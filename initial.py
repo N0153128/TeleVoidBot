@@ -2,7 +2,7 @@
 from telegram_handler import Bot
 import time
 import asyncio
-from settings import *
+from config import *
 
 
 # NOTE FOR EVERYONE WHO'S WILLING TO UNDERSTAND THE CODE INSIDE OTHER FILES
