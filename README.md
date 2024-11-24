@@ -31,5 +31,7 @@ add ton difference 24h for motd
 
 add FTUE features, such as auto-create ``config.py`` and request minimal required data for the config to run the bot
 
+add multi-argument message support. example: `/create title, platform, availability, rating`
+
 ### Known Issues
 - the bot would randomly crash if it was launched outside of the Docker environment.
