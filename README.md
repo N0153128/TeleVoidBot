@@ -12,7 +12,8 @@ scenarios/telegraph - allows to create and quickly access created notes using Te
 
 ### How to Run
 - ```pip install -r requirements.txt ```
-- Add your bot's API token to the ``Settings.py``
+- Fill in all required constants in the ``config-blueprint.py``
+- rename ``config-blueprint.py`` to just ``config.py``
 - Run the bot with ``python main_controller BOT_API_KEY``
 
 ### TODO:
@@ -21,6 +22,7 @@ implement conditional MOTDs, where a user would report their condition to the bo
 add weather forecast for motd - highest & lowest temp + rain possibility
 add unread email counter for motd
 add ton difference 24h for motd
+add FTUE features, such as auto-create ``config.py`` and request minimal required data for the config to run the bot
 
 ### Known Issues
 - the bot would randomly crash if it was launched outside of the Docker environment.

@@ -1,6 +1,10 @@
+### Main goals of the Minimal branch is to cut out all unnecessary code and make the bot as lightweight as possible.
+### TODO: Remove all example mods and integrate critical mods and tools into the base TelegramHandler class
+
+
 from initial import Initial
-from settings import *  
-from scenarios.motd.motd_controller import motd_handler, motd_commands
+from config import *  
+from plugins.motd.motd_controller import motd_handler, motd_commands
 import asyncio
 from telegram_handler import Bot
 

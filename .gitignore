@@ -10,3 +10,9 @@ scenarios/motd/config.py
 settings.py
 config.py
 scenarios/motd/settings.py
+.idea
+__pycache__
+scenarios/motd/__pycache__
+scenarios/motd/config.cpython-36.pyc
+scenarios/motd/settings.cpython-36.pyc
+scenarios/motd/__pycache__
