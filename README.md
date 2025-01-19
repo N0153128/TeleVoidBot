@@ -11,10 +11,11 @@ scenarios/telegraph - allows to create and quickly access created notes using Te
 
 
 ### How to Run
+- Ensure that Python3.12 is installed.
 - ```pip install -r requirements.txt ```
 - Fill in all required constants in the ``config-blueprint.py``
 - rename ``config-blueprint.py`` to just ``config.py``
-- Run the bot with ``python main_controller BOT_API_KEY``
+- Run the bot with ``python3.12 main_controller BOT_API_KEY``
 
 ### TODO:
 ~~automatically create logs/general.log file for general logging.~~
